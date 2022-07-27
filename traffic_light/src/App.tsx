@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import './App.css';
-import ChangeAlarmTime from "./components/ChangeAlarmTime";
+import ChooseAlarmTime from "./components/ChooseAlarmTime";
 import HomeButton from "./components/HomeButton";
 import YesNoSlider from "./components/YesNoSlider";
 import CurrentTimeDisplay from "./components/CurrentTimeDisplay";
@@ -13,9 +13,6 @@ function App() {
 
   const [alarmTime, setAlarmTime] = useState(7);
  
-
-  
-  
 
 
 
@@ -35,7 +32,6 @@ function App() {
       </footer>
 
       {/* <HomeButton person="Jenny"/>
-      <YesNoSlider/>
       <ChangeAlarmTime/>
       <CurrentTimeDisplay/> */}
     </div>
@@ -61,6 +57,7 @@ function SetAlarmForm() {
       <main>
         <h1>Set up Alarm</h1>
         <CurrentTimeDisplay/>
+        <ChooseAlarmTime />
         <YesNoSlider decision="Wake-Up Song"/>
         <YesNoSlider decision="Make music and audiobooks available"/>
       </main>
@@ -72,13 +69,10 @@ function SetAlarmForm() {
 }
 
 function BasicAlarm() {
-  // let {alarmTime} = useParams;
-
   return (
     <>
       <main>
         <CurrentTimeDisplay/>
-        {/* <p>{alarmTime}</p> */}
       </main>
       <nav>
         <Link to="/">Home</Link>
