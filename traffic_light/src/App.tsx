@@ -5,19 +5,34 @@ import HomeButton from "./components/HomeButton";
 import YesNoSlider from "./components/YesNoSlider";
 import CurrentTimeDisplay from "./components/CurrentTimeDisplay";
 import { Routes, Route, Link } from "react-router-dom";
+import { useParams } from "react-router-dom"; 
+// useParams is for dynamic routing- may not use
 
 
 function App() {
+
+  const [alarmTime, setAlarmTime] = useState(7);
+ 
+
+  
+  
+
+
+
   return (
     <div className="App">
       <header className="App-header">
       </header>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="set" element={<SetAlarm /> } />
-        <Route path="set" element={<BasicAlarm /> } />
-        <Route path="set" element={<WakeUpWithAudio/> } />
+        <Route path="set" element={<SetAlarmForm /> } />
+        <Route path="alarm" element={<BasicAlarm /> } />
+        <Route path="alarm/:alarmTime" element={<BasicAlarm /> } />
+        <Route path="audio" element={<WakeUpWithAudio/> } />
       </Routes>
+      <footer>
+        &copy; 2022 Ada Developers Academy ✨ Jenny Luong✨
+      </footer>
 
       {/* <HomeButton person="Jenny"/>
       <YesNoSlider/>
@@ -40,14 +55,14 @@ function Home() {
   );
 }
 
-function SetAlarm() {
+function SetAlarmForm() {
   return (
     <>
       <main>
-        <h2>Set up Alarm</h2>
+        <h1>Set up Alarm</h1>
         <CurrentTimeDisplay/>
-        <HomeButton person="Jenny"/>
-        <YesNoSlider/>
+        <YesNoSlider decision="Wake-Up Song"/>
+        <YesNoSlider decision="Make music and audiobooks available"/>
       </main>
       <nav>
         <Link to="/">Home</Link>
@@ -57,10 +72,13 @@ function SetAlarm() {
 }
 
 function BasicAlarm() {
+  // let {alarmTime} = useParams;
+
   return (
     <>
       <main>
         <CurrentTimeDisplay/>
+        {/* <p>{alarmTime}</p> */}
       </main>
       <nav>
         <Link to="/">Home</Link>
@@ -74,15 +92,15 @@ function WakeUpWithAudio() {
   return (
     <>
       <main>
+      <nav>
+        <Link to="/">Home</Link>
+        <Link to="/set">Modify Alarm</Link>
+      </nav>
         <h2>Good morning!</h2>
         <CurrentTimeDisplay/>
         <p>Add traffic light component</p>
         <p>Add music & audio book components</p>
       </main>
-      <nav>
-        <Link to="/">Home</Link>
-        <Link to="/set">Modify Alarm</Link>
-      </nav>
     </>
   );
 }

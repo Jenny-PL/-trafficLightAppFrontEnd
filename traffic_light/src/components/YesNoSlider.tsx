@@ -1,19 +1,29 @@
 import React from "react";
 import "./YesNoSlider.css";
 
-// interface YesNoSliderProps {
-// }
+interface YesNoSliderProps {
+    decision: string;
+}
 
-function YesNoSlider(): JSX.Element {
+function YesNoSlider({decision}:YesNoSliderProps): JSX.Element {
     return (
-        <div>
+        <>
         <label className="toggle">
         <input className="toggle-checkbox" type="checkbox" defaultChecked/>
         <div className="toggle-switch"></div>
-        <span className="toggle-label">Choose Your Option</span>
+        <span className="toggle-label">{decision}</span>
         </label>
-        </div>
+        </>
 
 )}
 
 export default YesNoSlider;
+
+
+// interface HomeButtonProps {
+//     person: string;
+// }
+// function HomeButton({person}:HomeButtonProps): JSX.Element {
+//     return (
+//     <button>Home, {person}</button>
+// )}
