@@ -22,8 +22,9 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="set" element={<SetAlarmForm /> } />
-        <Route path="alarm" element={<NotTimeYet alarmTime={alarmTime}/> } />
-        <Route path="alarm/:alarmTime" element={<NotTimeYet alarmTime={alarmTime}/> } />
+        <Route path="alarm" element={<NotTimeYet  /> } />
+        {/* <Route path="alarm" element={<NotTimeYet alarmTime={alarmTime}/> } /> */}
+        {/* <Route path="alarm/:alarmTime" element={<NotTimeYet alarmTime={alarmTime}/> } /> */}
         <Route path="wakeup" element={<OkayToWakeUp/> } />
          {/* <Route path="audio" element={<WakeUpWithAudio/> } /> */}
       </Routes>
@@ -66,10 +67,11 @@ function SetAlarmForm() {
   // const [wakeUpToggle, setWakeUpState] = React.useState<null | string>("on");
   // const [musicOptionToggle, setMusicOption] = useState("on");
 
-const handleFormSubmission = (event: React.FormEvent<HTMLFormElement>) => {
-  event.preventDefault();
-  let newTime = event.currentTarget.value
-  setAlarmTime(newTime); //updates state with inputted alarmTime
+  const handleFormSubmission = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    // need to tie to ChooseAlarmTime component... right now it is not. 
+    let newTime = event.currentTarget.value
+    setAlarmTime(newTime); //updates state with inputted alarmTime
   // let wakeToggle = document.getElementById('slideToggle').checked//updates state with 
   // let musicAudioToggle = 
 
@@ -83,7 +85,7 @@ const handleFormSubmission = (event: React.FormEvent<HTMLFormElement>) => {
         <h1>Set up Alarm</h1>
         <form onSubmit={event => handleFormSubmission(event)}>
           <CurrentTimeDisplay/>
-          <ChooseAlarmTime />
+          <ChooseAlarmTime NewTime={currentTarget.value}/>
           <YesNoSlider decision="Wake-Up Song"/>
           <YesNoSlider decision="Music and audiobooks available"/>
           <input type='submit' value='Set Alarm' />
@@ -99,17 +101,16 @@ const handleFormSubmission = (event: React.FormEvent<HTMLFormElement>) => {
 // need to pass state from SetAlarmForm()
 // when current time == alarmTime, navigate to OkayToWakeUp()
 
-interface NotTimeYetProps {
-  alarmTime: string;
-}
+// interface NotTimeYetProps {
+//   alarmTime: string;
+// }
+// {alarmTime}: NotTimeYetProps
 
-function NotTimeYet({alarmTime}: NotTimeYetProps) {  
-  const location = useLocation();
+function NotTimeYet() {  
+  const location:any = useLocation();
   console.log(location, " useLocation Hook");
   const alarmTime = location.state?.alarmTime;
 
-  
-  
   return (
     <>
       <main>
