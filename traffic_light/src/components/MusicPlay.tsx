@@ -8,9 +8,12 @@ interface MusicPlayProps {
 }
 
 const MusicPlay: Function = ({playCommand,audio }:MusicPlayProps) => {
-    const [play] = useSound({audio});
+    // const [play] = useSound({audio});
   
-    return <button onClick={play}>{playCommand}</button>;
+    // return <button onClick={play}>{playCommand}</button>;
+    return (
+        <p>🎵Toggle on/off to play/stop music🎵</p>
+    )
   };
 
 export default MusicPlay;

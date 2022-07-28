@@ -1,7 +1,7 @@
 import React from "react";
 import "./CurrentTimeDisplay.css";
 
-// interface YesNoSliderProps {
+// interface CurrentTimeDisplayProps {
 // }
 
 function CurrentTimeDisplay(): JSX.Element {
