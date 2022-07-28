@@ -19,6 +19,7 @@ function ChooseAlarmTime({passTimeToTrafficClock}:ChooseAlarmTimeProps): JSX.Ele
         event.preventDefault();
         let newTime = event.currentTarget.value
         setAlarmTime(newTime);
+        passTimeToTrafficClock(newTime);
     }
 // navigates to new page, upon submission
 // On submit, want to render this route:  <Route path="alarm" element={<BasicAlarm /> } />
@@ -26,7 +27,8 @@ function ChooseAlarmTime({passTimeToTrafficClock}:ChooseAlarmTimeProps): JSX.Ele
     const handleFormSubmission = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         passTimeToTrafficClock(alarmTime);
-        navigate('/alarm');
+        navigate('/alarm', {state: { alarmTime: alarmTime }});  
+//one way to pass on state is through navigating to the Link... how to access then?
     }
 
 

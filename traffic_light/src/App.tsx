@@ -24,8 +24,8 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="set" element={<SetAlarmForm /> } />
-        <Route path="alarm" element={<NotTimeYet /> } />
-        <Route path="alarm/:alarmTime" element={<NotTimeYet /> } />
+        <Route path="alarm" element={<NotTimeYet alarmTime={alarmTime}/> } />
+        <Route path="alarm/:alarmTime" element={<NotTimeYet alarmTime={alarmTime}/> } />
         <Route path="wakeup" element={<OkayToWakeUp/> } />
          {/* <Route path="audio" element={<WakeUpWithAudio/> } /> */}
       </Routes>
@@ -57,6 +57,7 @@ function Home() {
 // Think this is where I want to to add the logic to capture 'onsumbit' to navigate to
 // to NotTimeYet (aka <Route path="alarm" element={<NotTimeYet /> )
 // Also need to pass up state from each subComponent
+
 function SetAlarmForm() {
   return (
     <>
@@ -76,7 +77,12 @@ function SetAlarmForm() {
 
 // need to pass state from SetAlarmForm()
 // when current time == alarmTime, navigate to OkayToWakeUp()
-function NotTimeYet() {
+
+interface NotTimeYetProps {
+  alarmTime: string;
+}
+
+function NotTimeYet({alarmTime}: NotTimeYetProps) {  
   return (
     <>
       <main>

@@ -13,6 +13,8 @@ function HomeButton({person}:HomeButtonProps): JSX.Element {
     <button>Home, {person}</button>
 )}
 
+export default HomeButton;
+
 // function ComponentName({destructured props}: PropsInterace) {
 // }
 
@@ -21,6 +23,3 @@ function HomeButton({person}:HomeButtonProps): JSX.Element {
 //     return (
 //     <button>Home</button>
 // )}
-
-
-export default HomeButton;
