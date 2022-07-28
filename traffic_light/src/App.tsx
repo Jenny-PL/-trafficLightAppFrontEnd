@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect} from "react";
 import './App.css';
 import ChooseAlarmTime from "./components/ChooseAlarmTime";
 import MusicPlay from "./components/MusicPlay";
@@ -7,15 +7,13 @@ import TrafficLight from "./components/TrafficLight";
 import VisualCountdown from "./components/VisualCountdown";
 import YesNoSlider from "./components/YesNoSlider";
 import CurrentTimeDisplay from "./components/CurrentTimeDisplay";
-import { Routes, Route, Link } from "react-router-dom";
+import { Routes, Route, Link, useLocation } from "react-router-dom";
 import { useParams } from "react-router-dom"; 
-import { timeEnd } from "console";
+import { useNavigate }  from 'react-router-dom';
 // useParams is for dynamic routing- may not use
 
 
 function App() {
-
-  // const [alarmTime, setAlarmTime] = useState(7);
 
   return (
     <div className="App">
@@ -36,11 +34,6 @@ function App() {
   );
 }
 
-function passTimeToTrafficClock(alarmTime: string) {
-  return alarmTime;
-}
-const alarmTime = passTimeToTrafficClock
-
 // Landing Page
 function Home() {
   return (
@@ -54,19 +47,47 @@ function Home() {
     </>
   );
 }
-// Think this is where I want to to add the logic to capture 'onsumbit' to navigate to
-// to NotTimeYet (aka <Route path="alarm" element={<NotTimeYet /> )
+
+
+
+// capture 'onsubmit' to navigate to to NotTimeYet (aka <Route path="alarm" element={<NotTimeYet /> )
 // Also need to pass up state from each subComponent
+// interface SetAlarmFormProps {
+ 
+// }
+
+const defaultTime = "00:00";
 
 function SetAlarmForm() {
+  const navigate = useNavigate();
+  const [alarmTime, setAlarmTime] = React.useState<string>(defaultTime);
+
+  // need to add state for y/n slider toggles:
+  // const [wakeUpToggle, setWakeUpState] = React.useState<null | string>("on");
+  // const [musicOptionToggle, setMusicOption] = useState("on");
+
+const handleFormSubmission = (event: React.FormEvent<HTMLFormElement>) => {
+  event.preventDefault();
+  let newTime = event.currentTarget.value
+  setAlarmTime(newTime); //updates state with inputted alarmTime
+  // let wakeToggle = document.getElementById('slideToggle').checked//updates state with 
+  // let musicAudioToggle = 
+
+  // navigate('/alarm'); 
+  navigate('/alarm', {state: { alarmTime: alarmTime }}); 
+}
+
   return (
     <>
       <main>
         <h1>Set up Alarm</h1>
-        <CurrentTimeDisplay/>
-        <ChooseAlarmTime passTimeToTrafficClock={passTimeToTrafficClock}/>
-        <YesNoSlider decision="Wake-Up Song"/>
-        <YesNoSlider decision="Music and audiobooks available"/>
+        <form onSubmit={event => handleFormSubmission(event)}>
+          <CurrentTimeDisplay/>
+          <ChooseAlarmTime />
+          <YesNoSlider decision="Wake-Up Song"/>
+          <YesNoSlider decision="Music and audiobooks available"/>
+          <input type='submit' value='Set Alarm' />
+        </form>
       </main>
       <nav>
         <Link to="/">Home</Link>
@@ -83,6 +104,12 @@ interface NotTimeYetProps {
 }
 
 function NotTimeYet({alarmTime}: NotTimeYetProps) {  
+  const location = useLocation();
+  console.log(location, " useLocation Hook");
+  const alarmTime = location.state?.alarmTime;
+
+  
+  
   return (
     <>
       <main>
@@ -124,22 +151,5 @@ function OkayToWakeUp() {
     </>
   );
 }
-
-// function WakeUpWithAudio() {
-//   return (
-//     <>
-//       <main>
-//       <nav>
-//         <Link to="/">Home</Link>
-//         <Link to="/set">Modify Alarm</Link>
-//       </nav>
-//         <h2>Good morning!</h2>
-//         <CurrentTimeDisplay/>
-//         <p>Add traffic light component</p>
-//         <p>Add music & audio book components</p>
-//       </main>
-//     </>
-//   );
-// }
 
 export default App;
