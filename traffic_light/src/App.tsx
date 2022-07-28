@@ -49,8 +49,6 @@ function Home() {
   );
 }
 
-
-
 // capture 'onsubmit' to navigate to to NotTimeYet (aka <Route path="alarm" element={<NotTimeYet /> )
 // Also need to pass up state from each subComponent
 // interface SetAlarmFormProps {
@@ -85,7 +83,7 @@ function SetAlarmForm() {
         <h1>Set up Alarm</h1>
         <form onSubmit={event => handleFormSubmission(event)}>
           <CurrentTimeDisplay/>
-          <ChooseAlarmTime NewTime={currentTarget.value}/>
+          <ChooseAlarmTime />
           <YesNoSlider decision="Wake-Up Song"/>
           <YesNoSlider decision="Music and audiobooks available"/>
           <input type='submit' value='Set Alarm' />
