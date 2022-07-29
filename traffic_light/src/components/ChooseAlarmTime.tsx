@@ -15,7 +15,7 @@ function ChooseAlarmTime({passTimeToTrafficClock}:ChooseAlarmTimeProps): JSX.Ele
 
 
 // changes alarm time state
-    const onFormSubmit = (event: React.FormEvent<HTMLInputElement>) => {
+    const onInputChange = (event: React.FormEvent<HTMLInputElement>) => {
         event.preventDefault();
         let newTime = event.currentTarget.value
         setAlarmTime(newTime);
@@ -36,7 +36,7 @@ function ChooseAlarmTime({passTimeToTrafficClock}:ChooseAlarmTimeProps): JSX.Ele
         <div>
             <label htmlFor="alarm">Ok to wake time: </label>
             <form onSubmit={event => handleFormSubmission(event)}>
-            <input type='time' id="alarm" name="alarm" onChange={event => onFormSubmit(event)} value={alarmTime}/>
+            <input type='time' id="alarm" name="alarm" onChange={event => onInputChange(event)} value={alarmTime}/>
             <input type='submit' value='Set Alarm' />
             </form>
         </div>
