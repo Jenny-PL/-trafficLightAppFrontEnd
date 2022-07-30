@@ -32,15 +32,14 @@
 .redlight{
     top: 30px;
     background: red;
-    /* opacity: 80%; */
 }
 .yellowlight {
     top: 145px;
-    background: yellow;
+    background: rgb(75, 75, 63);
 }
 
 .greenlight {
     bottom: 30px;
-    background: green;
-    /* opacity: 80%; */
+    background: rgb(50, 60, 50);
+    opacity: 80%;
 }
