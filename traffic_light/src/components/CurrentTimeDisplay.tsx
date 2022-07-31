@@ -1,4 +1,5 @@
 import React from "react";
+import {useState, useEffect} from "react";
 import "./CurrentTimeDisplay.css";
 
 // interface CurrentTimeDisplayProps {
@@ -6,11 +7,29 @@ import "./CurrentTimeDisplay.css";
 
 function CurrentTimeDisplay(): JSX.Element {
 
+    const now = new Date();
+    // trigger a re-render every 60sec:
+    const [time, setTime] = useState(now);
+
+    useEffect(() => {
+    const interval = setInterval(() => setTime(new Date()), 60);
+    return () => {
+        clearInterval(interval);
+    };
+    }, []);
+
+    // only invoke setInterval once when the component gets mounted 
+    // then setInterval calls setTime(Date.now()) every 60 seconds. 
+    // Finally, we invoke clearInterval when the component is unmounted.
+    // Note that the component gets updated, based on how you've used time in it,
+    // every time the value of time changes
+    // https://stackoverflow.com/questions/39426083/update-react-component-every-second
+
+
     const modifyAmPm: Function = () => {
-        const now = new Date();
-        let hours: number = now.getHours();
+        let hours: number = time.getHours();
         let suffix: string = ' AM';
-        let minutes: number = now.getMinutes();
+        let minutes: number = time.getMinutes();
 
         if (hours > 12) {
             hours = hours - 12;
@@ -32,7 +51,6 @@ function CurrentTimeDisplay(): JSX.Element {
     }
 
     let currentTime: string = modifyAmPm();
-
 
     return ( 
         <div>
