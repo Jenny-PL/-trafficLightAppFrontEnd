@@ -14,6 +14,15 @@ import { useNavigate }  from 'react-router-dom';
 // import { useParams } from "react-router-dom"; 
 // useParams is for dynamic routing- may not use
 
+
+interface navToWakePageProps {
+  alarmTime: string;
+  wakeUpToggle: boolean;
+  audioToggle: boolean;
+  visualDisplay: boolean;
+  currentTime: Date;
+}
+
 //audioTag
 //  <audio controls>
 //   <source src="horse.mp3" type="audio/mpeg">
@@ -90,46 +99,49 @@ function SetAlarmForm() {
   const [audioToggle, setAudioState] = React.useState<boolean>(true);
   const [visualDisplay, setVisualDisplayState] = React.useState<boolean>(true);
 
+  // if you provide initial values for all objects, explicitly stating the type is not necessary.
   // const [formData, setFormData] = useState({
   //   alarmTime: "00:00",
   //   wakeToggle: true,
-  //   musicAudioToggle: true,
+  //   audioToggle: true,
   //   visualDisplay: true })
 
-  //   processSubmittedDataFunction(formData);
-  //   setFormData({
-  //   alarmTime: "00:00",
-  //   wakeToggle: true,
-  //   musicAudioToggle: true,
-  //   visualDisplay: true 
-  //  }) 
 
-//  const onInputChange = (event: React.FormEvent<HTMLInputElement>)  => {
-//   setFormData({
-//      ...formData, 
-//      [event.target.name]: event.target.value
-//   })
-// }
-
+  // const onInputChange = (event: React.FormEvent<HTMLInputElement>)  => {
+  //   const inputElement = event.currentTarget as HTMLInputElement;
+  //   const name = inputElement.name;
+  //   let value:any;
+  //   if (name === 'alarm') {
+  //      value = inputElement.value;
+  //   } else {
+  //      value = inputElement.checked;
+  //   }
+  //    // make a new object that is copied from form object
+  //    const newForm = { ...formData };
+  //   newForm[name] = value;
+  //   setFormData(newForm);
+  //   };
+  
   const onInputChange = (event: React.FormEvent<HTMLInputElement>) => {
     setAlarmTime(event.currentTarget.value);}
-
   const onWakeUpChange = (event: React.FormEvent<HTMLInputElement>) => {
     setWakeUpState(event.currentTarget.checked);}
-
-    const onAudioChange = (event: React.FormEvent<HTMLInputElement>) => {
-      setAudioState(event.currentTarget.checked);}
-
-    const onVisualChange = (event: React.FormEvent<HTMLInputElement>) => {
+  const onAudioChange = (event: React.FormEvent<HTMLInputElement>) => {
+    setAudioState(event.currentTarget.checked);}
+  const onVisualChange = (event: React.FormEvent<HTMLInputElement>) => {
       setVisualDisplayState(event.currentTarget.checked);}
 
 
   const handleFormSubmission = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    //passing on state through params with navigate, react router
+    console.log("alarm time is:", alarmTime)
+    // passing on state through params with navigate, react router
     navigate('/alarm', {state: { alarmTime: alarmTime,  wakeUpToggle: wakeUpToggle,
   audioToggle: audioToggle, visualDisplay: visualDisplay}}); 
   }
+  // navigate('/alarm', {state: { alarmTime: formData.alarmTime,  wakeUpToggle: formData.wakeToggle,
+  //   audioToggle: formData.audioToggle, visualDisplay: formData.visualDisplay}}); 
+  //   }
   
   return (
     <>
@@ -140,25 +152,29 @@ function SetAlarmForm() {
           <CurrentTimeDisplay/>
           <label htmlFor="alarm">Ok to wake time: 
               <input type='time' id="alarm" name="alarm" onChange={event => onInputChange(event)} value={alarmTime}/>
+              {/* <input type='time' id="alarm" name="alarmTime" onChange={onInputChange} value={formData.alarmTime}/> */}
           </label>
-            {/* <input type='time' id="alarm" name="alarm" onChange={event => onInputChange(event)} value={formData.name}}/> */}
 
           <label className="toggle">
-            <input id="slideToggle" className="toggle-checkbox" type="checkbox" defaultChecked onChange={event => onWakeUpChange(event)} checked={wakeUpToggle}/>
+            <input id="slideToggle" className="toggle-checkbox" type="checkbox" name="wakeupsong"  onChange={event => onWakeUpChange(event)} checked={wakeUpToggle}/>
+            {/* <input id="slideToggle" className="toggle-checkbox" type="checkbox" name="wakeToggle"defaultChecked onChange={onInputChange} checked={formData.wakeToggle}/> */}
+
             <div className="toggle-switch"></div>
             <span className="toggle-label">Wake-Up Song</span>
           </label>
 
           <label className="toggle">
-            <input id="slideToggle" className="toggle-checkbox" type="checkbox" defaultChecked onChange={event => onAudioChange(event)} checked={audioToggle}/>
+            <input id="slideToggle" className="toggle-checkbox" type="checkbox" onChange={event => onAudioChange(event)} checked={audioToggle}/>
+            {/* <input id="slideToggle" className="toggle-checkbox" type="checkbox" name="audioToggle" defaultChecked onChange={onInputChange} checked={formData.audioToggle}/> */}
             <div className="toggle-switch"></div>
             <span className="toggle-label">Music and audiobooks available</span>
           </label>
 
           <label className="toggle">
-            <input id="slideToggle" className="toggle-checkbox" type="checkbox" defaultChecked onChange={event => onVisualChange(event)} checked={visualDisplay}/>
+            <input id="slideToggle" className="toggle-checkbox" type="checkbox" onChange={event => onVisualChange(event)} checked={visualDisplay}/>
+            {/* <input id="slideToggle" className="toggle-checkbox" type="checkbox" defaultChecked name="visualDisplay" onChange={onInputChange} checked={formData.visualDisplay}/> */}
             <div className="toggle-switch"></div>
-            <span className="toggle-label">Visual Countdown of tie left</span>
+            <span className="toggle-label">Visual Countdown of time left</span>
           </label>
 
           <input type='submit' value='Set Alarm' />
@@ -182,32 +198,72 @@ function SetAlarmForm() {
 
 
 
+
 // Not time to wake Yet page
 function NotTimeYet() { 
   const navigate = useNavigate(); // this is for routing to a new link
 
 // useLocation passes on props through Link with react router (rather than as params in route definition)
   const location:any = useLocation();
-  console.log(location, " useLocation Hook-- here it is!");
   const alarmTime = location.state?.alarmTime;
   const wakeUpToggle = location.state?.wakeUpToggle;
   const audioToggle = location.state?.audioToggle;
   const visualDisplay = location.state?.visualDisplay;
 
-  if (visualDisplay === true) {
-    navigate('/visualcountdown', {state: { alarmTime: alarmTime,  wakeUpToggle: wakeUpToggle,
-      audioToggle: audioToggle, visualDisplay: visualDisplay}}); 
+  const [currentTime, setCurrentTime] = useState(new Date());
+  // interface navToWakePageProps {
+  //   alarmTime: string;
+  //   wakeUpToggle: boolean;
+  //   audioToggle: boolean;
+  //   visualDisplay: boolean;
+  //   currentTime: Date;
+  // }
+  //BUG: how to compare alarmTime (string) with currentTime (Date stamp... currentTimeDisplay element has 
+  // same structure as alarmTime... how to access this instead?)
+    //naviagate to <Route path="wakeup" element={<OkayToWakeUp/> } />
+  function navToWakePage({alarmTime, wakeUpToggle, audioToggle, currentTime, visualDisplay}: navToWakePageProps) {
+    let minutes = currentTime.getMinutes();
+    let mins :string;
+    let currentTimeString: string;
+    if (minutes < 10) {
+      mins = "0" + minutes;
+      currentTimeString = currentTime.getHours() + ":" + mins;
+    }
+    else {
+      currentTimeString = currentTime.getHours() + ":" + currentTime.getMinutes();
+    }
+    console.log("alarm time is ", alarmTime);
+    console.log("currentTimestring is", currentTimeString);
+    if (currentTimeString >= alarmTime && wakeUpToggle === false) {
+      navigate('/wakeup', {state: { alarmTime: alarmTime,  wakeUpToggle: wakeUpToggle,
+        audioToggle: audioToggle, visualDisplay: visualDisplay}}); 
+    } else if (currentTimeString >= alarmTime && wakeUpToggle === true) {
+      navigate('/wakeup-audio', {state: { wakeUpToggle: wakeUpToggle,
+        audioToggle: audioToggle, visualDisplay: visualDisplay}});
+    }
   }
+  //TODO: Make visualCountdown page, then uncomment this:
 
-  const now = new Date();
-  //naviagate to <Route path="wakeup" element={<OkayToWakeUp/> } />
-  if (alarmTime === now && wakeUpToggle === false) {
-    navigate('/wakeup', {state: { alarmTime: alarmTime,  wakeUpToggle: wakeUpToggle,
-      audioToggle: audioToggle, visualDisplay: visualDisplay}}); 
-  } else if (alarmTime === now && wakeUpToggle === true) {
-    navigate('/wakeup-audio', {state: { wakeUpToggle: wakeUpToggle,
-      audioToggle: audioToggle, visualDisplay: visualDisplay}});
-  }
+  // if (visualDisplay === true) {
+  //   navigate('/visualcountdown', {state: { alarmTime: alarmTime,  wakeUpToggle: wakeUpToggle,
+  //     audioToggle: audioToggle, visualDisplay: visualDisplay}}); 
+  // }
+
+  // This code is already in component CurrentTimeDisplay... how can I avoid having it in here twice?
+  // ...pass up in a callback Function?
+  // trigger a re-render every 60sec:
+  useEffect(() => { 
+    navToWakePage({alarmTime, wakeUpToggle, audioToggle, currentTime, visualDisplay});
+    const interval = setInterval(() => 
+    setCurrentTime(new Date()),
+    60000);
+    return () => {
+        clearInterval(interval);
+    };
+    }, ); 
+    // remove dependency array?
+    // or fill array with: [alarmTime, wakeUpToggle, audioToggle, currentTime, visualDisplay, navToWakePage]
+
 
   return (
     <>
@@ -218,7 +274,7 @@ function NotTimeYet() {
       </nav>
         <h2>Okay to wake at:</h2>
         <AlarmTimeDisplay alarmTime={alarmTime}/>
-        <TrafficLight/>
+        <RedTrafficLight/>
         <CurrentTimeDisplay/>
         {/* set ternary expression whether to display visual countdown? or sep routed page  */}
         {/* <VisualCountdown/> */}
