@@ -22,6 +22,7 @@ interface navToWakePageProps {
   audioToggle: boolean;
   visualDisplay: boolean;
   currentTime: Date;
+  chosenSong?: string;
 }
 
 //audioTag
@@ -107,11 +108,12 @@ function NotTimeYet() {
   const wakeUpToggle = location.state?.wakeUpToggle;
   const audioToggle = location.state?.audioToggle;
   const visualDisplay = location.state?.visualDisplay;
+  const chosenSong = location.state?.chosenSong;
 
   const [currentTime, setCurrentTime] = useState(new Date());
 
   // naviagate to '/wakeup' or '/wakeup-audio' when currentTime >= alarmTime:
-  function navToWakePage({alarmTime, wakeUpToggle, audioToggle, currentTime, visualDisplay}: navToWakePageProps) {
+  function navToWakePage({alarmTime, wakeUpToggle, audioToggle, currentTime, visualDisplay, chosenSong}: navToWakePageProps) {
     let minutes = currentTime.getMinutes();
     let mins :string;
     let currentTimeString: string;
@@ -129,7 +131,7 @@ function NotTimeYet() {
         audioToggle: audioToggle, visualDisplay: visualDisplay}}); 
     } else if (currentTimeString >= alarmTime && wakeUpToggle === true) {
       navigate('/wakeup-audio', {state: { wakeUpToggle: wakeUpToggle,
-        audioToggle: audioToggle, visualDisplay: visualDisplay}});
+        audioToggle: audioToggle, visualDisplay: visualDisplay, chosenSong: chosenSong}});
     }
   }
   //TODO: Make visualCountdown page, then uncomment this:
@@ -141,7 +143,7 @@ function NotTimeYet() {
 
   //currentTimeDisplay component has similar useEffect hook; is it necessary in both places?
   useEffect(() => { 
-    navToWakePage({alarmTime, wakeUpToggle, audioToggle, currentTime, visualDisplay});
+    navToWakePage({alarmTime, wakeUpToggle, audioToggle, currentTime, visualDisplay, chosenSong});
     const interval = setInterval(() => 
     setCurrentTime(new Date()),
     60000);
@@ -174,7 +176,6 @@ function NotTimeYet() {
 // function NotTimeYetWithDisplay()
 // very similar to above however with <visualCountdown/> rendered
 
-//BUG: why does GreenTrafficLight not display the same as the others?
 function OkayToWakeUp() {
 // useLocation passes on props through Link with react router (rather than as params in route definition)
 const location:any = useLocation();
@@ -209,6 +210,8 @@ function WakeUpWithAudio() {
   const wakeUpToggle = location.state?.wakeUpToggle;
   const audioToggle = location.state?.audioToggle;
   const visualDisplay = location.state?.visualDisplay;
+  const chosenSong = location.state?.chosenSong;
+
     return (
       <>
         <main>
@@ -221,6 +224,9 @@ function WakeUpWithAudio() {
           <CurrentTimeDisplay/>
           {/* set ternary expression whether to display MusicPlay, and AudioBook */}
           {/* set ternary expression whether to play wakeUpSong, and if so, display a stop button */}
+          <audio controls autoPlay> 
+            <source src={chosenSong} type="audio/mpeg"/>
+          </audio>
           <MusicPlay/>
           <AudioBook/>
           {/* <VisualCountdown/> */}
