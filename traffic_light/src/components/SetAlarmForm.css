@@ -1,0 +1,24 @@
+.formPage {
+    display: grid;
+    grid-template-rows: 1fr 2fr 1fr 1fr 1fr;
+}
+
+#setTime {
+    grid-row: 1/2;    
+}
+
+#songToggle {
+    grid-row: 2/3;   
+}
+
+#audioMusicToggle {
+    grid-row: 3/4;
+}
+
+#visualCountToggle {
+    grid-row: 4/5;
+}
+
+#setAlarmButton {
+    grid-row: 5/6;
+}

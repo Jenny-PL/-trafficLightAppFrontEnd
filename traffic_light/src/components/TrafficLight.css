@@ -18,7 +18,7 @@
 } */
 
 /* Lights */
-/* .redlightT, .yellowlightT, .greenlightT {
+.redlight, .yellowlight, .greenlight {
     width: 90px;
     height: 90px;
     width: 100px;
@@ -28,8 +28,8 @@
     border-radius: 50%;
     display: flex;
     background: white;
-} */ 
-/* .redlight{
+} 
+.redlight{
     top: 30px;
     background: red;
 }
@@ -37,7 +37,7 @@
     top: 145px;
     background: yellow;
 }
-.greenlightT {
+.greenlight {
     bottom: 30px;
     background: green;
-} */
+}

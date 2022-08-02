@@ -9,8 +9,8 @@ function GreenTrafficLight(): JSX.Element {
     
     return (
         <>
-    <div className="containerG">
-        <div className="TrafficLightG"></div>
+    <div className="container">
+        <div className="trafficlight"></div>
             <div className="redlightG"></div>
             <div className="yellowlightG"></div>
             <div className="greenlightG"></div>

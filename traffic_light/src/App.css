@@ -3,19 +3,21 @@
 A5C9CA
 E7F6F2  light blue*/
 
+div {
+  margin: auto 60px;
+}
 
 .App {
   text-align: center;
   background-color: #E7F6F2;
 }
 
-
+/* traffic light containers: */
 .container {
   display: flex;
   position: relative;
   justify-content: center;
 }
-
 .trafficlight {
   /* width: 150px; */
   width: 300px;
@@ -25,35 +27,8 @@ E7F6F2  light blue*/
   background: black;
   position: relative;
   display: flex;
-
 }
 
-/* Lights */
-.redlight, .yellowlight, .greenlight {
-  width: 90px;
-  height: 90px;
-  width: 100px;
-  height: 100px;
-  position: absolute;
-  border: 10px solid black;
-  border-radius: 50%;
-  display: flex;
-  background: white;
-}
-.redlight{
-  top: 30px;
-  background: red;
-  /* opacity: 80%; */
-}
-.yellowlight {
-  top: 145px;
-  background: yellow;
-}
-.greenlight {
-  bottom: 30px;
-  background: green;
-  /* opacity: 80%; */
-}
 
 /* @media (prefers-reduced-motion: no-preference) {
   .containerT {
