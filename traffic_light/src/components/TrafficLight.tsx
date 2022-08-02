@@ -8,7 +8,7 @@ import "./TrafficLight.css";
 function TrafficLight(): JSX.Element {
     
     return (
-        <>
+    <>
     <div className="container">
         <div className="trafficlight"></div>
             <div className="redlight"></div>
@@ -16,6 +16,7 @@ function TrafficLight(): JSX.Element {
             <div className="greenlight"></div>
     </div>
     </>
+
 )}
 
 export default TrafficLight;

@@ -9,11 +9,11 @@ function GreenTrafficLight(): JSX.Element {
     
     return (
         <>
-    <div className="container">
-        <div className="GreenTrafficLight"></div>
-            <div className="redlight"></div>
-            <div className="yellowlight"></div>
-            <div className="greenlight"></div>
+    <div className="containerG">
+        <div className="TrafficLightG"></div>
+            <div className="redlightG"></div>
+            <div className="yellowlightG"></div>
+            <div className="greenlightG"></div>
     </div>
     </>
 )}

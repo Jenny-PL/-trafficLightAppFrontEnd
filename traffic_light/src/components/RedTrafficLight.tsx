@@ -11,9 +11,9 @@ function RedTrafficLight(): JSX.Element {
         <>
     <div className="container">
         <div className="trafficlight"></div>
-            <div className="redlight"></div>
-            <div className="yellowlight"></div>
-            <div className="greenlight"></div>
+            <div className="redlightR"></div>
+            <div className="yellowlightR"></div>
+            <div className="greenlightR"></div>
     </div>
     </>
 )}

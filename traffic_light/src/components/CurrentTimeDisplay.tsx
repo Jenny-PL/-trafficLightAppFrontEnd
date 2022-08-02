@@ -12,7 +12,7 @@ function CurrentTimeDisplay(): JSX.Element {
     const [time, setTime] = useState(now);
 
     useEffect(() => {
-    const interval = setInterval(() => setTime(new Date()), 60);
+    const interval = setInterval(() => setTime(new Date()), 6000);
     return () => {
         clearInterval(interval);
     };

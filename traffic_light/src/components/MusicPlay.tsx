@@ -12,7 +12,10 @@ const MusicPlay: Function = ({playCommand,audio }:MusicPlayProps) => {
   
     // return <button onClick={play}>{playCommand}</button>;
     return (
-        <p>🎵Toggle on/off to play/stop music🎵</p>
+        <>
+        <p>🎵</p>
+        <p> Play music</p>
+        </>
     )
   };
 

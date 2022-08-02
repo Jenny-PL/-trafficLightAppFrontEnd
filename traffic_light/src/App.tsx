@@ -106,7 +106,6 @@ function SetAlarmForm() {
   //   audioToggle: true,
   //   visualDisplay: true })
 
-
   // const onInputChange = (event: React.FormEvent<HTMLInputElement>)  => {
   //   const inputElement = event.currentTarget as HTMLInputElement;
   //   const name = inputElement.name;
@@ -131,7 +130,6 @@ function SetAlarmForm() {
   const onVisualChange = (event: React.FormEvent<HTMLInputElement>) => {
       setVisualDisplayState(event.currentTarget.checked);}
 
-
   const handleFormSubmission = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     console.log("alarm time is:", alarmTime)
@@ -141,7 +139,6 @@ function SetAlarmForm() {
   }
   // navigate('/alarm', {state: { alarmTime: formData.alarmTime,  wakeUpToggle: formData.wakeToggle,
   //   audioToggle: formData.audioToggle, visualDisplay: formData.visualDisplay}}); 
-  //   }
   
   return (
     <>
@@ -187,22 +184,16 @@ function SetAlarmForm() {
   );
 }
 
-
 // interface NotTimeYetProps {
 //   alarmTime: string;
 //   wakeUpToggle: boolean;
 //   audioToggle: boolean;
-    // visualDisplay: boolean;
-// }
+//   visualDisplay: boolean; }
 // {alarmTime, wakeUpToggle, audioToggle}: NotTimeYetProps
-
-
-
 
 // Not time to wake Yet page
 function NotTimeYet() { 
   const navigate = useNavigate(); // this is for routing to a new link
-
 // useLocation passes on props through Link with react router (rather than as params in route definition)
   const location:any = useLocation();
   const alarmTime = location.state?.alarmTime;
@@ -211,16 +202,8 @@ function NotTimeYet() {
   const visualDisplay = location.state?.visualDisplay;
 
   const [currentTime, setCurrentTime] = useState(new Date());
-  // interface navToWakePageProps {
-  //   alarmTime: string;
-  //   wakeUpToggle: boolean;
-  //   audioToggle: boolean;
-  //   visualDisplay: boolean;
-  //   currentTime: Date;
-  // }
-  //BUG: how to compare alarmTime (string) with currentTime (Date stamp... currentTimeDisplay element has 
-  // same structure as alarmTime... how to access this instead?)
-    //naviagate to <Route path="wakeup" element={<OkayToWakeUp/> } />
+
+  // naviagate to '/wakeup' or '/wakeup-audio' when currentTime >= alarmTime:
   function navToWakePage({alarmTime, wakeUpToggle, audioToggle, currentTime, visualDisplay}: navToWakePageProps) {
     let minutes = currentTime.getMinutes();
     let mins :string;
@@ -249,9 +232,7 @@ function NotTimeYet() {
   //     audioToggle: audioToggle, visualDisplay: visualDisplay}}); 
   // }
 
-  // This code is already in component CurrentTimeDisplay... how can I avoid having it in here twice?
-  // ...pass up in a callback Function?
-  // trigger a re-render every 60sec:
+  //currentTimeDisplay component has similar useEffect hook; is it necessary in both places?
   useEffect(() => { 
     navToWakePage({alarmTime, wakeUpToggle, audioToggle, currentTime, visualDisplay});
     const interval = setInterval(() => 
@@ -263,7 +244,6 @@ function NotTimeYet() {
     }, ); 
     // remove dependency array?
     // or fill array with: [alarmTime, wakeUpToggle, audioToggle, currentTime, visualDisplay, navToWakePage]
-
 
   return (
     <>
@@ -287,7 +267,6 @@ function NotTimeYet() {
 // function NotTimeYetWithDisplay()
 // very similar to above however with <visualCountdown/> rendered
 
-
 //BUG: why does GreenTrafficLight not display the same as the others?
 function OkayToWakeUp() {
 // useLocation passes on props through Link with react router (rather than as params in route definition)
@@ -305,7 +284,7 @@ const visualDisplay = location.state?.visualDisplay;
         <Link to="/set">Modify Alarm</Link>
       </nav>
         <h2>You can Wake up!</h2>
-        <TrafficLight/>
+        <GreenTrafficLight/>
         <CurrentTimeDisplay/>
         {/* set ternary expression whether to display MusicPlay, and AudioBook */}
         {/* set ternary expression whether to play wakeUpSong, and if so, display a stop button */}
@@ -313,7 +292,6 @@ const visualDisplay = location.state?.visualDisplay;
         <AudioBook/>
         {/* <VisualCountdown/> */}
       </main>
-      
     </>
   );
 }
@@ -331,7 +309,7 @@ function WakeUpWithAudio() {
           <Link to="/set">Modify Alarm</Link>
         </nav>
           <h2>You can Wake up!</h2>
-          <TrafficLight/>
+          <GreenTrafficLight/>
           <CurrentTimeDisplay/>
           {/* set ternary expression whether to display MusicPlay, and AudioBook */}
           {/* set ternary expression whether to play wakeUpSong, and if so, display a stop button */}
