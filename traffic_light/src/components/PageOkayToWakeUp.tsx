@@ -4,6 +4,7 @@ import CurrentTimeDisplay from "./CurrentTimeDisplay";
 import GreenTrafficLight from "./GreenTrafficLight";
 import MusicPlay from "./MusicPlay";
 import AudioBook from "./AudioBook";
+import VisualCountdown from "./VisualCountdown";
 import "./PageOkayToWakeUp.css";
 
 interface PageOkayToWakeUpProps {
@@ -23,11 +24,8 @@ function PageOkayToWakeUp({alarmTime, wakeUpToggle, audioToggle, visualDisplay}:
         <h2>You can Wake up!</h2>
         <GreenTrafficLight/>
         <CurrentTimeDisplay/>
-        {/* set ternary expression whether to display MusicPlay, and AudioBook */}
-        {/* set ternary expression whether to play wakeUpSong, and if so, display a stop button */}
-        <MusicPlay/>
-        <AudioBook/>
-        {/* <VisualCountdown/> */}
+        {audioToggle ? <> <AudioBook/> <MusicPlay/> </> : null}
+        {visualDisplay ? <VisualCountdown/> : null}
         </main>
     </>
     );
