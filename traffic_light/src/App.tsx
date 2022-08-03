@@ -6,16 +6,8 @@ import PageNotTimeYet from "./components/PageNotTimeYet";
 import PageOkayToWakeUp from "./components/PageOkayToWakeUp";
 import PageWakeUpWithAudio from "./components/PageWakeUpWithAudio";
 import TrafficLight from "./components/TrafficLight";
-import VisualCountdown from "./components/VisualCountdown";
 import { Routes, Route, Link } from "react-router-dom";
 import { useNavigate }  from 'react-router-dom';
-
-
-
-//audioTag
-//  <audio controls>
-//   <source src="horse.mp3" type="audio/mpeg">
-// </audio>
 
 
 // fileupload tag html input
@@ -27,6 +19,10 @@ import { useNavigate }  from 'react-router-dom';
 
 
 function App() {
+
+  const url = "http://127.0.0.1:5000/audiobook" //change to heroku deployed url when able
+  //database: trafficlight
+  // collection: wakeup
 
   const [alarmTime, setAlarmTime] = React.useState<string>("00:00");
   const [wakeUpToggle, setWakeUpToggle] = React.useState<boolean>(false);
@@ -40,8 +36,24 @@ function App() {
   //useEffect allows the component to render, then make the API call asynchronously 
   //after the app is fully rendered; the empty dependency array means it will only be called 1x
 
+  useEffect(() => {
+
+    // want to add chosenSong to database.
+    axios.post(`${url}/alarmsong`, chosenSong)
+      .then((response) => {
+        console.log('Song sent to database', response.data);
+      })
+      .catch((error) => {
+        console.log('Error with sending song to database', error.response.status);
+        console.log('The data from response with an error:', error.response.data);
+      });
+
+  }, []);
+
+
+
   // useEffect(() => {
-  //   axios.get('some great url to make an API call to')
+  //   axios.get('url')
   //     .then((response) => {
   //       console.log('The data we get back from the HTTP response:', response.data);
   //     })
@@ -59,7 +71,7 @@ function App() {
       <Routes>
         <Route path="/" element={<PageHome />} />
         <Route path="set" element={<PageSetAlarmForm setAlarmTime={setAlarmTime} setWakeUpToggle={setWakeUpToggle} setAudioToggle={setAudioToggle} setVisualDisplay={setVisualDisplay} setChosenSong={setChosenSong} alarmTime={alarmTime} chosenSong={chosenSong}/> } />
-        <Route path="alarm" element={<PageNotTimeYet alarmTime={alarmTime} wakeUpToggle={wakeUpToggle} setCurrentTime={setCurrentTime} currentTime={currentTime} /> } />
+        <Route path="alarm" element={<PageNotTimeYet alarmTime={alarmTime} wakeUpToggle={wakeUpToggle} setCurrentTime={setCurrentTime} currentTime={currentTime} visualDisplay={visualDisplay}/> } />
         <Route path="wakeup" element={<PageOkayToWakeUp alarmTime={alarmTime} wakeUpToggle={wakeUpToggle} audioToggle={audioToggle} visualDisplay={visualDisplay}/> } />
         <Route path="wakeup-audio" element={<PageWakeUpWithAudio alarmTime={alarmTime} wakeUpToggle={wakeUpToggle} audioToggle={audioToggle} visualDisplay={visualDisplay} chosenSong={chosenSong}/> } />
         {/* <Route path="visualcountdown" element={<PageNotTimeYetWithDisplay />} /> */}

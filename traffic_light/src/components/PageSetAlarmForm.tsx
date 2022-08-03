@@ -19,20 +19,22 @@ interface PageSetAlarmFormProps {
 function PageSetAlarmForm({setAlarmTime, setWakeUpToggle, setAudioToggle, setVisualDisplay, setChosenSong, alarmTime, chosenSong}: PageSetAlarmFormProps) {
     const navigate = useNavigate(); // this is for routing to a new link
 
-    // pop-up to select song:
+    // pop-up to select song, toggle on/off:
     const [isOpen, setIsOpen] = React.useState<boolean>(false);
+
     const togglePopup = () => {
       setIsOpen(!isOpen);
-    };
+    }
       
     const onInputChange = (event: React.FormEvent<HTMLInputElement>) => {
       setAlarmTime(event.currentTarget.value); 
     }
 
     const onWakeUpChange = (event: React.FormEvent<HTMLInputElement>) => {
-        console.log("wake up is checked on?", event.currentTarget.checked);
-        setWakeUpToggle(event.currentTarget.checked);
-        togglePopup();
+        event.preventDefault();
+        console.log("wake up is checked on?", event.currentTarget.checked); //false at default, changes to true
+        togglePopup(); // isOpen should change from false --> true and pop up file upload/song choice window
+        setWakeUpToggle(event.currentTarget.checked); //true
     }
     const onAudioChange = (event: React.FormEvent<HTMLInputElement>) => {
       setAudioToggle(event.currentTarget.checked);}
@@ -49,6 +51,9 @@ function PageSetAlarmForm({setAlarmTime, setWakeUpToggle, setAudioToggle, setVis
       <>
         <main className="formPage">
             <h1>Set up Alarm</h1>
+
+            {isOpen ? <SongFormPopUp  togglePopup={togglePopup} setChosenSong={setChosenSong} chosenSong={chosenSong}/> : null}
+
             <form onSubmit={event => handleFormSubmission(event)}>
                 <div id="setTime">
                     <CurrentTimeDisplay/>
@@ -65,8 +70,6 @@ function PageSetAlarmForm({setAlarmTime, setWakeUpToggle, setAudioToggle, setVis
                     {/* <input id="slideToggle" className="toggle-checkbox" type="checkbox" name="wakeupsong"  onChange={event => onWakeUpChange(event)} checked={event?.currentTarget.checked}/> */}
                     {/* <input id="slideToggle" className="toggle-checkbox" type="checkbox" name="wakeupsong"  onChange={event => onWakeUpChange(event)} checked={wakeUpToggle}/> */}
                     <input id="slideToggle" className="toggle-checkbox" type="checkbox" name="wakeupsong"  onChange={event => onWakeUpChange(event)} defaultChecked={false}/>
-                    {isOpen ? <SongFormPopUp  handleClose={togglePopup} setChosenSong={setChosenSong} chosenSong={chosenSong}/> : null}
-                    {/* {isOpen && (<SongFormPopUp  handleClose={togglePopup} setChosenSong={setChosenSong}/>)} */}
                     <div className="toggle-switch"></div>
                     <span className="toggle-label">Wake-Up Song</span>
                 </label>

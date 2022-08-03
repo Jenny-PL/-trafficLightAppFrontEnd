@@ -4,6 +4,7 @@ import {useEffect, useState} from "react";
 import { useNavigate, Link }  from 'react-router-dom';
 import AlarmTimeDisplay from "./AlarmTimeDisplay";
 import RedTrafficLight from "./RedTrafficLight";
+import VisualCountdown from "./VisualCountdown";
 import CurrentTimeDisplay from "./CurrentTimeDisplay";
 
 //MAJOR BUG: Why is page navigating to /wakeup before statement in ine 41 is true??
@@ -12,6 +13,7 @@ interface PageNotTimeYetProps {
     wakeUpToggle: boolean;
     setCurrentTime: Function;
     currentTime: Date;
+    visualDisplay: boolean;
     }
 
 interface navToWakePageProps {
@@ -20,7 +22,7 @@ interface navToWakePageProps {
   currentTime: Date;
 }
   
-  function PageNotTimeYet({alarmTime, wakeUpToggle, setCurrentTime, currentTime}: PageNotTimeYetProps) { 
+  function PageNotTimeYet({alarmTime, wakeUpToggle, setCurrentTime, currentTime, visualDisplay}: PageNotTimeYetProps) { 
     const navigate = useNavigate(); // this is for routing to a new link
 
     // naviagate to '/wakeup' or '/wakeup-audio' when currentTime >= alarmTime:
@@ -44,11 +46,6 @@ interface navToWakePageProps {
         navigate('/wakeup-audio');
       }
     }
-    //TODO: Make visualCountdown page, then uncomment this:
-    // if (visualDisplay === true) {
-    //   navigate('/visualcountdown', {state: { alarmTime: alarmTime,  wakeUpToggle: wakeUpToggle,
-    //     audioToggle: audioToggle, visualDisplay: visualDisplay}}); 
-    // }
   
     //currentTimeDisplay component has similar useEffect hook; is it necessary in both places?
     useEffect(() => { 
@@ -73,9 +70,8 @@ interface navToWakePageProps {
           <h2>Okay to wake at:</h2>
           <AlarmTimeDisplay alarmTime={alarmTime}/>
           <RedTrafficLight/>
+          {visualDisplay ? <VisualCountdown/> : null}
           <CurrentTimeDisplay/>
-          {/* set ternary expression whether to display visual countdown? or sep routed page  */}
-          {/* <VisualCountdown/> */}
         </main>
       </>
     );
