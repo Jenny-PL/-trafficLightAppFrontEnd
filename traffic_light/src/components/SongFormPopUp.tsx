@@ -5,12 +5,11 @@ import {useEffect} from "react";
 
 interface SongFormPopUpProps {
     handleClose: MouseEventHandler<HTMLSpanElement>;
+    setChosenSong: Function;
 }
 
-function SongFormPopUp({handleClose}:SongFormPopUpProps): JSX.Element {
+function SongFormPopUp({handleClose, setChosenSong}:SongFormPopUpProps): JSX.Element {
     const navigate = useNavigate(); // this is for routing to a new link
-
-    const [chosenSong, setChosenSong] = React.useState<string>("");
 
     const onInputChange = (event: React.FormEvent<HTMLInputElement>) => {
         setChosenSong(event.currentTarget.value);}
@@ -22,13 +21,11 @@ function SongFormPopUp({handleClose}:SongFormPopUpProps): JSX.Element {
     //     },[]);    
 
 
-        //BUG: value is a string with file path --> need to instead upload, then convert to binary.
-
-
+//BUG: value is a string with file path --> need to instead upload, then convert to binary.
     const handleFormSubmission = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         // need to pass on selected song as a param when navigate back to set alarm Form
-        navigate('/set', {state: {chosenSong:chosenSong}}); 
+        navigate('/set'); 
       }
     
     return (
