@@ -5,6 +5,7 @@ import GreenTrafficLight from "./GreenTrafficLight";
 import MusicPlay from "./MusicPlay";
 import AudioBook from "./AudioBook";
 import "./PageOkayToWakeUp.css";
+import VisualCountdown from "./VisualCountdown";
 
 interface PageWakeUpWithAudioProps {
     alarmTime: string;
@@ -26,14 +27,12 @@ function PageWakeUpWithAudio({alarmTime, wakeUpToggle, audioToggle, visualDispla
         <h2>You can Wake up!</h2>
         <GreenTrafficLight/>
         <CurrentTimeDisplay/>
-        {/* set ternary expression whether to display MusicPlay, and AudioBook */}
-        {/* set ternary expression whether to play wakeUpSong, and if so, display a stop button */}
         <audio controls autoPlay> 
             <source src={chosenSong} type="audio/mpeg"/>
         </audio>
-        <MusicPlay/>
-        <AudioBook/>
-        {/* <VisualCountdown/> */}
+        {audioToggle ? <> <AudioBook/> <MusicPlay/> </> : null}
+        {visualDisplay ? <VisualCountdown/> : null}
+         {/* do not currently have a separate toggle for music and audio */}
         </main>
         
     </>

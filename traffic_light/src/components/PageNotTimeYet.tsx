@@ -36,21 +36,11 @@ interface navToWakePageProps {
         currentTimeString = currentTime.getHours() + ":" + currentTime.getMinutes();
       }
 
-      console.log("alarm time is ", alarmTime);
-      console.log(typeof alarmTime);
-      console.log("currentTimestring is", currentTimeString);
-      console.log(currentTimeString.valueOf());
-      console.log("type for value of:", typeof currentTimeString.valueOf());
-      console.log(typeof currentTimeString);
-      console.log("true or false?", currentTimeString >= alarmTime && wakeUpToggle===false);
-      console.log("I'm in PageNotYetTime");
-
+    
       if (currentTimeString >= alarmTime && wakeUpToggle === false)
       if (currentTimeString.valueOf() >= alarmTime.valueOf() && wakeUpToggle === false)  {
-        console.log("in navigate logic- to wakeup")
         navigate('/wakeup')
       } else if (currentTimeString >= alarmTime && wakeUpToggle) {
-        console.log("in navigate logic- to wakeup with audio")
         navigate('/wakeup-audio');
       }
     }
