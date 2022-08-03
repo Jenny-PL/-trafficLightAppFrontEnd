@@ -125,7 +125,10 @@ function NotTimeYet() {
       currentTimeString = currentTime.getHours() + ":" + currentTime.getMinutes();
     }
     console.log("alarm time is ", alarmTime);
+    console.log(typeof alarmTime);
     console.log("currentTimestring is", currentTimeString);
+    console.log(typeof currentTimeString);
+    console.log(currentTimeString <= alarmTime);
     if (currentTimeString >= alarmTime && wakeUpToggle === false) {
       navigate('/wakeup', {state: { alarmTime: alarmTime,  wakeUpToggle: wakeUpToggle,
         audioToggle: audioToggle, visualDisplay: visualDisplay}}); 
