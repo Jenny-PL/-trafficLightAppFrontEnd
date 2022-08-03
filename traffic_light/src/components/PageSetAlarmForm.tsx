@@ -1,35 +1,40 @@
 import React from "react";
 import CurrentTimeDisplay from "./CurrentTimeDisplay";
-import "./SetAlarmForm.css";
+import "./PageSetAlarmForm.css";
 import { useNavigate, Link }  from 'react-router-dom';
 import SongFormPopUp from "./SongFormPopUp";
 // import './App.css';
 
-interface SetAlarmFormProps {
-    chosenSong?: string;
+interface PageSetAlarmFormProps {
+    setAlarmTime: Function;
+    setWakeUpToggle: Function;
+    setAudioToggle: Function;
+    setVisualDisplay: Function;
+    alarmTime: string;
+    setChosenSong: Function;
+    chosenSong: string;
 }
 
 // Set Alarm Page
-function SetAlarmForm({chosenSong}: SetAlarmFormProps) {
+function PageSetAlarmForm({setAlarmTime, setWakeUpToggle, setAudioToggle, setVisualDisplay, setChosenSong, alarmTime, chosenSong}: PageSetAlarmFormProps) {
     const navigate = useNavigate(); // this is for routing to a new link
-  
-    const [alarmTime, setAlarmTime] = React.useState<string>("00:00");
-    const [wakeUpToggle, setWakeUpToggle] = React.useState<boolean>(false);
-    const [audioToggle, setAudioToggle] = React.useState<boolean>(false);
-    const [visualDisplay, setVisualDisplay] = React.useState<boolean>(false);
 
-    // pop-up to select song:
+    // pop-up to select song, toggle on/off:
     const [isOpen, setIsOpen] = React.useState<boolean>(false);
+
     const togglePopup = () => {
       setIsOpen(!isOpen);
-    };
+    }
       
     const onInputChange = (event: React.FormEvent<HTMLInputElement>) => {
-      setAlarmTime(event.currentTarget.value);}
+      setAlarmTime(event.currentTarget.value); 
+    }
+
     const onWakeUpChange = (event: React.FormEvent<HTMLInputElement>) => {
-        console.log("wake up is checked on?", event.currentTarget.checked);
-        setWakeUpToggle(event.currentTarget.checked);
-        togglePopup();
+        event.preventDefault();
+        console.log("wake up is checked on?", event.currentTarget.checked); //false at default, changes to true
+        togglePopup(); // isOpen should change from false --> true and pop up file upload/song choice window
+        setWakeUpToggle(event.currentTarget.checked); //true
     }
     const onAudioChange = (event: React.FormEvent<HTMLInputElement>) => {
       setAudioToggle(event.currentTarget.checked);}
@@ -38,39 +43,33 @@ function SetAlarmForm({chosenSong}: SetAlarmFormProps) {
   
     const handleFormSubmission = (event: React.FormEvent<HTMLFormElement>) => {
       event.preventDefault();
-      console.log("alarm time is:", alarmTime)
-      // passing on state through params with navigate, react router
-        if (chosenSong !== "") {
-        navigate('/alarm', {state: { alarmTime: alarmTime,  wakeUpToggle: wakeUpToggle,
-            audioToggle: audioToggle, visualDisplay: visualDisplay, chosenSong: chosenSong}}); 
-            }
-        else {
-            navigate('/alarm', {state: { alarmTime: alarmTime,  wakeUpToggle: wakeUpToggle,
-                audioToggle: audioToggle, visualDisplay: visualDisplay}}); 
-        }
+      console.log("alarm time is:", alarmTime) // alarmTime is passed into props solely for this console.log
+     navigate('/alarm');
       }
-
-    // navigate('/alarm', {state: { alarmTime: formData.alarmTime,  wakeUpToggle: formData.wakeToggle,
-    //   audioToggle: formData.audioToggle, visualDisplay: formData.visualDisplay}}); 
-    
+  
     return (
       <>
         <main className="formPage">
             <h1>Set up Alarm</h1>
+
+            {isOpen ? <SongFormPopUp  togglePopup={togglePopup} setChosenSong={setChosenSong} chosenSong={chosenSong}/> : null}
+
             <form onSubmit={event => handleFormSubmission(event)}>
-                    {/* each of these inputs should have its own onChange event, else a collective onChange event */}
                 <div id="setTime">
                     <CurrentTimeDisplay/>
                     <label htmlFor="alarm">Ok to wake time: 
-                        <input type='time' id="alarm" name="alarm" onChange={event => onInputChange(event)} value={alarmTime}/>
-                        {/* <input type='time' id="alarm" name="alarmTime" onChange={onInputChange} value={formData.alarmTime}/> */}
+  {/* BUG: how to access alarmTime here?? */}
+  {/* QUESTION: what goes in value?  event.currentTarget.value? name attribute? alarmTime from state on app level? */}
+                        <input type='time' id="alarm" name="alarm" onChange={event => onInputChange(event)} />
+
                     </label>
                 </div>
             
                 <div id="songToggle">
                 <label className="toggle">
-                    <input id="slideToggle" className="toggle-checkbox" type="checkbox" name="wakeupsong"  onChange={event => onWakeUpChange(event)} checked={wakeUpToggle}/>
-                    {isOpen && (<SongFormPopUp  handleClose={togglePopup}/>)}
+                    {/* <input id="slideToggle" className="toggle-checkbox" type="checkbox" name="wakeupsong"  onChange={event => onWakeUpChange(event)} checked={event?.currentTarget.checked}/> */}
+                    {/* <input id="slideToggle" className="toggle-checkbox" type="checkbox" name="wakeupsong"  onChange={event => onWakeUpChange(event)} checked={wakeUpToggle}/> */}
+                    <input id="slideToggle" className="toggle-checkbox" type="checkbox" name="wakeupsong"  onChange={event => onWakeUpChange(event)} defaultChecked={false}/>
                     <div className="toggle-switch"></div>
                     <span className="toggle-label">Wake-Up Song</span>
                 </label>
@@ -78,7 +77,8 @@ function SetAlarmForm({chosenSong}: SetAlarmFormProps) {
 
                 <div id="audioMusicToggle">
                     <label className="toggle">
-                    <input id="slideToggle" className="toggle-checkbox" type="checkbox" onChange={event => onAudioChange(event)} checked={audioToggle}/>
+                    <input id="slideToggle" className="toggle-checkbox" type="checkbox" onChange={event => onAudioChange(event)} defaultChecked={false}/>
+                    {/* <input id="slideToggle" className="toggle-checkbox" type="checkbox" onChange={event => onAudioChange(event)} checked={audioToggle}/> */}
                     <div className="toggle-switch"></div>
                     <span className="toggle-label">Music and audiobooks available</span>
                     </label>
@@ -86,7 +86,8 @@ function SetAlarmForm({chosenSong}: SetAlarmFormProps) {
   
                 <div id="visualCountToggle">
                     <label className="toggle">
-                    <input id="slideToggle" className="toggle-checkbox" type="checkbox" onChange={event => onVisualChange(event)} checked={visualDisplay}/>
+                    {/* <input id="slideToggle" className="toggle-checkbox" type="checkbox" onChange={event => onVisualChange(event)} checked={visualDisplay}/> */}
+                    <input id="slideToggle" className="toggle-checkbox" type="checkbox" onChange={event => onVisualChange(event)} defaultChecked={false}/>
                     <div className="toggle-switch"></div>
                     <span className="toggle-label">Visual Countdown of time left</span>
                     </label>
@@ -104,7 +105,7 @@ function SetAlarmForm({chosenSong}: SetAlarmFormProps) {
     );
   }
 
-export default SetAlarmForm;
+export default PageSetAlarmForm;
 
 
 
