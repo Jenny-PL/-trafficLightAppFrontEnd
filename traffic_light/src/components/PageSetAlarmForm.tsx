@@ -1,22 +1,21 @@
 import React from "react";
 import CurrentTimeDisplay from "./CurrentTimeDisplay";
-import "./SetAlarmForm.css";
+import "./PageSetAlarmForm.css";
 import { useNavigate, Link }  from 'react-router-dom';
 import SongFormPopUp from "./SongFormPopUp";
 // import './App.css';
 
-interface SetAlarmFormProps {
+interface PageSetAlarmFormProps {
     chosenSong?: string;
+    setAlarmTime: Function;
+    setWakeUpToggle: Function;
+    setAudioToggle: Function;
+    setVisualDisplay: Function;
 }
 
 // Set Alarm Page
-function SetAlarmForm({chosenSong}: SetAlarmFormProps) {
+function PageSetAlarmForm({chosenSong, setAlarmTime, setWakeUpToggle, setAudioToggle, setVisualDisplay}: PageSetAlarmFormProps) {
     const navigate = useNavigate(); // this is for routing to a new link
-  
-    const [alarmTime, setAlarmTime] = React.useState<string>("00:00");
-    const [wakeUpToggle, setWakeUpToggle] = React.useState<boolean>(false);
-    const [audioToggle, setAudioToggle] = React.useState<boolean>(false);
-    const [visualDisplay, setVisualDisplay] = React.useState<boolean>(false);
 
     // pop-up to select song:
     const [isOpen, setIsOpen] = React.useState<boolean>(false);
@@ -26,6 +25,7 @@ function SetAlarmForm({chosenSong}: SetAlarmFormProps) {
       
     const onInputChange = (event: React.FormEvent<HTMLInputElement>) => {
       setAlarmTime(event.currentTarget.value);}
+
     const onWakeUpChange = (event: React.FormEvent<HTMLInputElement>) => {
         console.log("wake up is checked on?", event.currentTarget.checked);
         setWakeUpToggle(event.currentTarget.checked);
@@ -41,29 +41,21 @@ function SetAlarmForm({chosenSong}: SetAlarmFormProps) {
       console.log("alarm time is:", alarmTime)
       // passing on state through params with navigate, react router
         if (chosenSong !== "") {
-        navigate('/alarm', {state: { alarmTime: alarmTime,  wakeUpToggle: wakeUpToggle,
-            audioToggle: audioToggle, visualDisplay: visualDisplay, chosenSong: chosenSong}}); 
+            navigate('/alarm');
             }
-        else {
-            navigate('/alarm', {state: { alarmTime: alarmTime,  wakeUpToggle: wakeUpToggle,
-                audioToggle: audioToggle, visualDisplay: visualDisplay}}); 
-        }
       }
-
-    // navigate('/alarm', {state: { alarmTime: formData.alarmTime,  wakeUpToggle: formData.wakeToggle,
-    //   audioToggle: formData.audioToggle, visualDisplay: formData.visualDisplay}}); 
-    
+  
     return (
       <>
         <main className="formPage">
             <h1>Set up Alarm</h1>
             <form onSubmit={event => handleFormSubmission(event)}>
-                    {/* each of these inputs should have its own onChange event, else a collective onChange event */}
                 <div id="setTime">
                     <CurrentTimeDisplay/>
                     <label htmlFor="alarm">Ok to wake time: 
-                        <input type='time' id="alarm" name="alarm" onChange={event => onInputChange(event)} value={alarmTime}/>
-                        {/* <input type='time' id="alarm" name="alarmTime" onChange={onInputChange} value={formData.alarmTime}/> */}
+  {/* BUG: how to access alarmTime here?? */}
+                        <input type='time' id="alarm" name="alarm" onChange={event => onInputChange(event)} value={event.currentTarget.value}/>
+
                     </label>
                 </div>
             
@@ -104,7 +96,7 @@ function SetAlarmForm({chosenSong}: SetAlarmFormProps) {
     );
   }
 
-export default SetAlarmForm;
+export default PageSetAlarmForm;
 
 
 
