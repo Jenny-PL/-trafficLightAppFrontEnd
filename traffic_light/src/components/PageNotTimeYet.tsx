@@ -27,6 +27,8 @@ interface navToWakePageProps {
 
     // naviagate to '/wakeup' or '/wakeup-audio' when currentTime >= alarmTime:
     function navToWakePage({alarmTime, wakeUpToggle, currentTime}: navToWakePageProps) {
+      console.log("inside navegate to wake page function!")
+
       let minutes = currentTime.getMinutes();
       let mins :string;
       let currentTimeString: string;
@@ -38,9 +40,10 @@ interface navToWakePageProps {
         currentTimeString = currentTime.getHours() + ":" + currentTime.getMinutes();
       }
 
+      console.log("currentTimeString: ",currentTimeString);
+      console.log("alarmTime is:", alarmTime);
     
-      if (currentTimeString >= alarmTime && wakeUpToggle === false)
-      if (currentTimeString.valueOf() >= alarmTime.valueOf() && wakeUpToggle === false)  {
+      if (currentTimeString >= alarmTime && wakeUpToggle === false) {
         navigate('/wakeup')
       } else if (currentTimeString >= alarmTime && wakeUpToggle) {
         navigate('/wakeup-audio');
