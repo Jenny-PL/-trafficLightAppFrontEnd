@@ -6,10 +6,12 @@ import AlarmTimeDisplay from "./AlarmTimeDisplay";
 import RedTrafficLight from "./RedTrafficLight";
 import CurrentTimeDisplay from "./CurrentTimeDisplay";
 
+//MAJOR BUG: Why is page navigating to /wakeup before statement in ine 41 is true??
 interface PageNotTimeYetProps {
     alarmTime: string;
     wakeUpToggle: boolean;
     setCurrentTime: Function;
+    currentTime: Date;
     }
 
 interface navToWakePageProps {
@@ -18,7 +20,7 @@ interface navToWakePageProps {
   currentTime: Date;
 }
   
-  function PageNotTimeYet({alarmTime, wakeUpToggle, setCurrentTime}: PageNotTimeYetProps) { 
+  function PageNotTimeYet({alarmTime, wakeUpToggle, setCurrentTime, currentTime}: PageNotTimeYetProps) { 
     const navigate = useNavigate(); // this is for routing to a new link
 
     // naviagate to '/wakeup' or '/wakeup-audio' when currentTime >= alarmTime:
@@ -35,9 +37,10 @@ interface navToWakePageProps {
       }
       console.log("alarm time is ", alarmTime);
       console.log("currentTimestring is", currentTimeString);
-      if (currentTimeString >= alarmTime && wakeUpToggle === false) {
+      console.log("true or false?", currentTimeString >= alarmTime && wakeUpToggle);
+      if ((currentTimeString >= alarmTime) === true && wakeUpToggle === false) {
         navigate('/wakeup')
-      } else if (currentTimeString >= alarmTime && wakeUpToggle === true) {
+      } else if ((currentTimeString >= alarmTime) === true && wakeUpToggle === true) {
         navigate('/wakeup-audio');
       }
     }

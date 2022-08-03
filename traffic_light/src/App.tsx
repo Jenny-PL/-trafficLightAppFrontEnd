@@ -33,6 +33,7 @@ function App() {
   const [audioToggle, setAudioToggle] = React.useState<boolean>(false);
   const [visualDisplay, setVisualDisplay] = React.useState<boolean>(false);
   const [currentTime, setCurrentTime] = useState(new Date());
+  const [chosenSong, setChosenSong] = React.useState<string>("");
 
   //To DO: add axios call for POST to db 
 
@@ -57,8 +58,8 @@ function App() {
       </header>
       <Routes>
         <Route path="/" element={<PageHome />} />
-        <Route path="set" element={<PageSetAlarmForm setAlarmTime={setAlarmTime} setWakeUpToggle={setWakeUpToggle} setAudioToggle={setAudioToggle} setVisualDisplay={setVisualDisplay}/> } />
-        <Route path="alarm" element={<PageNotTimeYet alarmTime={alarmTime} wakeUpToggle={wakeUpToggle} audioToggle={audioToggle} visualDisplay={visualDisplay} chosenSong={chosenSong} setCurrentTime={setCurrentTime} currentTime={currentTime} /> } />
+        <Route path="set" element={<PageSetAlarmForm setAlarmTime={setAlarmTime} setWakeUpToggle={setWakeUpToggle} setAudioToggle={setAudioToggle} setVisualDisplay={setVisualDisplay} setChosenSong={setChosenSong} alarmTime={alarmTime} chosenSong={chosenSong}/> } />
+        <Route path="alarm" element={<PageNotTimeYet alarmTime={alarmTime} wakeUpToggle={wakeUpToggle} setCurrentTime={setCurrentTime} currentTime={currentTime} /> } />
         <Route path="wakeup" element={<PageOkayToWakeUp alarmTime={alarmTime} wakeUpToggle={wakeUpToggle} audioToggle={audioToggle} visualDisplay={visualDisplay}/> } />
         <Route path="wakeup-audio" element={<PageWakeUpWithAudio alarmTime={alarmTime} wakeUpToggle={wakeUpToggle} audioToggle={audioToggle} visualDisplay={visualDisplay} chosenSong={chosenSong}/> } />
         {/* <Route path="visualcountdown" element={<PageNotTimeYetWithDisplay />} /> */}

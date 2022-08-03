@@ -6,9 +6,10 @@ import {useEffect} from "react";
 interface SongFormPopUpProps {
     handleClose: MouseEventHandler<HTMLSpanElement>;
     setChosenSong: Function;
+    chosenSong: string;
 }
 
-function SongFormPopUp({handleClose, setChosenSong}:SongFormPopUpProps): JSX.Element {
+function SongFormPopUp({handleClose, setChosenSong, chosenSong}:SongFormPopUpProps): JSX.Element {
     const navigate = useNavigate(); // this is for routing to a new link
 
     const onInputChange = (event: React.FormEvent<HTMLInputElement>) => {
