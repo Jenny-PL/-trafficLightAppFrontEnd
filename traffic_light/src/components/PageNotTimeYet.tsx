@@ -30,9 +30,21 @@ interface navToWakePageProps {
       console.log("inside navegate to wake page function!")
 
       let minutes = currentTime.getMinutes();
+      let hours = currentTime.getHours();
+      let hrs: string;
       let mins :string;
       let currentTimeString: string;
-      if (minutes < 10) {
+
+      if (hours < 10 && minutes < 10) {
+        mins = "0" + minutes;
+        hrs = "0" + hours;
+        currentTimeString = hrs + ":" + mins;
+      }
+      else if (hours < 10) {
+        hrs = "0" + hours;
+        currentTimeString = hrs + ":" + minutes;
+      }
+      else if (minutes < 10) {
         mins = "0" + minutes;
         currentTimeString = currentTime.getHours() + ":" + mins;
       }
