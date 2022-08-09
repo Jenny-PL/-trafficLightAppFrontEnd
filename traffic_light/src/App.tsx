@@ -8,6 +8,7 @@ import PageWakeUpWithAudio from "./components/PageWakeUpWithAudio";
 import TrafficLight from "./components/TrafficLight";
 import { Routes, Route, Link } from "react-router-dom";
 import { useNavigate }  from 'react-router-dom';
+import { configure } from "@testing-library/react";
 
 
 // fileupload tag html input
@@ -20,7 +21,7 @@ import { useNavigate }  from 'react-router-dom';
 
 function App() {
 
-  const url = "http://127.0.0.1:5000/audiobook" //change to heroku deployed url when able
+  const url = "http://127.0.0.1:5000" //change to heroku deployed url when able
   //database: trafficlight
   // collection: wakeup
 
@@ -29,7 +30,7 @@ function App() {
   const [audioToggle, setAudioToggle] = React.useState<boolean>(false);
   const [visualDisplay, setVisualDisplay] = React.useState<boolean>(false);
   const [currentTime, setCurrentTime] = useState(new Date());
-  const [chosenSong, setChosenSong] = React.useState<string>("");
+  const [chosenSong, setChosenSong] = React.useState<File|null>(null);
 
   //To DO: add axios call for POST to db 
 
@@ -39,16 +40,37 @@ function App() {
   useEffect(() => {
 
     // want to add chosenSong to database.
-    axios.post(`${url}/alarmsong`, chosenSong)
+    // convert chosenSong string --> binary?!
+
+  //   let binarySong: BinaryData;
+  //   const chosenSongToAudio = (chosenSong) =>{
+  //     //convert file path to binary to store in DB?
+  //     binarySong = ArrayBufferToBinary(chosenSong);
+  //   }
+
+  //   //What is this array buffer?  how do I get it?
+  //   function ArrayBufferToBinary(chosenSong) {
+  //     // Convert an array buffer to a string bit-representation: 0 1 1 0 0 0...
+  //     var uint8 = new Uint8Array(chosenSong);
+  //     return uint8.reduce((binary, uint8) => binary + uint8.toString(2), "");
+  // }
+  const config = { headers: {  
+    'Content-Type': 'file.type',
+    'Access-Control-Allow-Origin': '*'}
+}
+
+    // axios.post(`${url}/alarmsong`, config)
+  axios.post(`${url}/alarmsong`, chosenSong)
       .then((response) => {
-        console.log('Song sent to database', response.data);
-      })
+        //  config; //need to add headers to response somehow?
+        console.log(chosenSong, 'Song sent to database', response.data);
+  })
       .catch((error) => {
         console.log('Error with sending song to database', error.response.status);
         console.log('The data from response with an error:', error.response.data);
       });
 
-  }, []);
+  }, [chosenSong]);
 
 
 

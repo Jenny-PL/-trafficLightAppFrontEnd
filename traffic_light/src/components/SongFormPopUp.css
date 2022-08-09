@@ -1,3 +1,6 @@
+
+/* BUG: the pop-up box is tranparent; when you scroll, it becomes hard to see. 
+need it to be opaque */
 .popup-box {
     position: fixed;
     background: #00000050;
