@@ -30,20 +30,17 @@ function VisualCountdown({alarmTime, alarmSetAt}:VisualCountdownProps): JSX.Elem
 
     let percentage: number;
     percentage = 60;
-    console.log( "It is:", time)
+    console.log( "It is:", time) // 8/10/2022, 2:10:14 PM
+    console.log("alarm time", alarmTime); // 2022-08-11T04:06
+    console.log("current time: ", time); // 8/10/2022, 2:10:08 PM
 
-   
-
-    console.log("alarm time", alarmTime);
-    console.log("current time: ", time);
-
-    // let origDiff = alarmTime.getTime() - alarmSetAt.getTime() 
-    // console.log("orig time diff: ", origDiff)
-    // let currentDiff = alarmTime.getTime() -  time.getTime()
-    // console.log("current Time diff: ", currentDiff)
-
-    // percentage = (currentDiff/origDiff)*100
-    // console.log("perecentage is:", percentage )
+    let origDiff = alarmTime - alarmSetAt
+    console.log("orig time diff: ", origDiff)
+    let currentDiff = alarmTime.getTime() -  time.getTime()
+    console.log("current Time diff: ", currentDiff)
+t
+    percentage = (currentDiff/origDiff)*100
+    console.log("perecentage is:", percentage )
     
 
 

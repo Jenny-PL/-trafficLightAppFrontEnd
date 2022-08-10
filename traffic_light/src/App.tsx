@@ -99,7 +99,7 @@ useEffect(() => {
       <Routes>
         <Route path="/" element={<PageHome />} />
         <Route path="set" element={<PageSetAlarmForm setAlarmTime={setAlarmTime} setWakeUpToggle={setWakeUpToggle} setAudioToggle={setAudioToggle} setVisualDisplay={setVisualDisplay} setChosenSong={setChosenSong} alarmTime={alarmTime} chosenSong={chosenSong}/> } />
-        <Route path="alarm" element={<PageNotTimeYet alarmTime={alarmTime} wakeUpToggle={wakeUpToggle} setCurrentTime={setCurrentTime} currentTime={currentTime} visualDisplay={visualDisplay} setAlarmSetAt={setAlarmSetAt}/> } />
+        <Route path="alarm" element={<PageNotTimeYet alarmTime={alarmTime} wakeUpToggle={wakeUpToggle} setCurrentTime={setCurrentTime} currentTime={currentTime} visualDisplay={visualDisplay} setAlarmTime={setAlarmTime} setAlarmSetAt={setAlarmSetAt}/> } />
         <Route path="wakeup" element={<PageOkayToWakeUp alarmTime={alarmTime} wakeUpToggle={wakeUpToggle} audioToggle={audioToggle} visualDisplay={visualDisplay} alarmSetAt={alarmSetAt}/> } />
         <Route path="wakeup-audio" element={<PageWakeUpWithAudio alarmTime={alarmTime} wakeUpToggle={wakeUpToggle} audioToggle={audioToggle} visualDisplay={visualDisplay} alarmSetAt={alarmSetAt} chosenSong={chosenSong}/> } />
         {/* <Route path="visualcountdown" element={<PageNotTimeYetWithDisplay />} /> */}

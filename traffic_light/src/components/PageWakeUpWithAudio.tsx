@@ -8,12 +8,12 @@ import "./PageOkayToWakeUp.css";
 import VisualCountdown from "./VisualCountdown";
 
 interface PageWakeUpWithAudioProps {
-    alarmTime: Date;
+    alarmTime: string;
     wakeUpToggle: boolean;
     audioToggle: boolean;
     visualDisplay: boolean;
     chosenSong: string; //need to change this to audiofile? binary?
-    alarmSetAt: Date
+    alarmSetAt: string;
 }
 
 //play wake up song!
