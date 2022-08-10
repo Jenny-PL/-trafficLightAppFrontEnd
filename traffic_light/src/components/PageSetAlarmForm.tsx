@@ -59,7 +59,7 @@ function PageSetAlarmForm({setAlarmTime, setWakeUpToggle, setAudioToggle, setVis
                     <CurrentTimeDisplay/>
                     <label htmlFor="alarm">Ok to wake time: 
   {/* QUESTION: what goes in value?  event.currentTarget.value? name attribute? alarmTime from state on app level? */}
-                        <input type='time' id="alarm" name="alarm" onChange={event => onInputChange(event)} />
+                        <input type='datetime-local' id="alarm" name="alarm" onChange={event => onInputChange(event)} />
 
                     </label>
                 </div>

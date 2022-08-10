@@ -38,6 +38,8 @@ function App() {
   //after the app is fully rendered; the empty dependency array means it will only be called 1x
 
   useEffect(() => {
+   add_song(chosenSong);
+   }, [chosenSong]);
 
     // want to add chosenSong to database.
     // convert chosenSong string --> binary?!
@@ -54,11 +56,11 @@ function App() {
   //     var uint8 = new Uint8Array(chosenSong);
   //     return uint8.reduce((binary, uint8) => binary + uint8.toString(2), "");
   // }
-  const config = { headers: {  
-    'Content-Type': 'file.type',
-    'Access-Control-Allow-Origin': '*'}
-}
-
+//   const config = { headers: {  
+//     'Content-Type': 'file.type',
+//     'Access-Control-Allow-Origin': '*'}
+// }
+ const add_song = (chosenSong:any) => {
     // axios.post(`${url}/alarmsong`, config)
   axios.post(`${url}/alarmsong`, chosenSong)
       .then((response) => {
@@ -69,8 +71,8 @@ function App() {
         console.log('Error with sending song to database', error.response.status);
         console.log('The data from response with an error:', error.response.data);
       });
+    }
 
-  }, [chosenSong]);
 
 
 
