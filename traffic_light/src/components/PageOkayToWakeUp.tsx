@@ -8,12 +8,13 @@ import VisualCountdown from "./VisualCountdown";
 import "./PageOkayToWakeUp.css";
 
 interface PageOkayToWakeUpProps {
-    alarmTime: string;
+    alarmTime: Date;
     wakeUpToggle: boolean;
     audioToggle: boolean;
     visualDisplay: boolean;
+    alarmSetAt: Date
 }
-function PageOkayToWakeUp({alarmTime, wakeUpToggle, audioToggle, visualDisplay}:PageOkayToWakeUpProps) {
+function PageOkayToWakeUp({alarmTime, wakeUpToggle, audioToggle, visualDisplay, alarmSetAt}:PageOkayToWakeUpProps) {
     return (
     <>
         <main>
@@ -25,7 +26,7 @@ function PageOkayToWakeUp({alarmTime, wakeUpToggle, audioToggle, visualDisplay}:
         <GreenTrafficLight/>
         <CurrentTimeDisplay/>
         {audioToggle ? <> <AudioBook/> <MusicPlay/> </> : null}
-        {visualDisplay ? <VisualCountdown/> : null}
+        {visualDisplay ? <VisualCountdown alarmTime={alarmTime} alarmSetAt={alarmSetAt}/> : null}
         </main>
     </>
     );

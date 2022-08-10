@@ -10,7 +10,7 @@ interface PageSetAlarmFormProps {
     setWakeUpToggle: Function;
     setAudioToggle: Function;
     setVisualDisplay: Function;
-    alarmTime: string;
+    alarmTime: Date; //changed
     setChosenSong: Function;
     chosenSong: string;
 }
@@ -27,7 +27,8 @@ function PageSetAlarmForm({setAlarmTime, setWakeUpToggle, setAudioToggle, setVis
     }
       
     const onInputChange = (event: React.FormEvent<HTMLInputElement>) => {
-      setAlarmTime(event.currentTarget.value); 
+      console.log('here is the time set', event.currentTarget.value.toLocaleString());
+      setAlarmTime(event.currentTarget.value.toLocaleString()); 
     }
 
     const onWakeUpChange = (event: React.FormEvent<HTMLInputElement>) => {
@@ -43,8 +44,9 @@ function PageSetAlarmForm({setAlarmTime, setWakeUpToggle, setAudioToggle, setVis
   
     const handleFormSubmission = (event: React.FormEvent<HTMLFormElement>) => {
       event.preventDefault();
-      console.log("alarm time is:", alarmTime) // alarmTime is passed into props solely for this console.log
-     navigate('/alarm');
+      console.log("alarm time is:", alarmTime) // 2022-08-10T02:07 alarmTime is passed into the props soley for this consolelog
+      console.log(typeof alarmTime)           // object
+      navigate('/alarm');
       }
   
     return (

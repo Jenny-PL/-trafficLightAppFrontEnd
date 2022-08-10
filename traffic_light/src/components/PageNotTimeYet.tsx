@@ -9,63 +9,71 @@ import CurrentTimeDisplay from "./CurrentTimeDisplay";
 
 //MAJOR BUG: Why is page navigating to /wakeup before statement in ine 41 is true??
 interface PageNotTimeYetProps {
-    // alarmTime: string;
-    alarmTime: Date;
+    alarmTime: string;
     wakeUpToggle: boolean;
     setCurrentTime: Function;
-    currentTime: Date;
+    currentTime: string; 
     visualDisplay: boolean;
+    setAlarmSetAt: Function;
     }
 
 interface navToWakePageProps {
-  // alarmTime: string;
-  alarmTime: Date;
+  alarmTime: string;
   wakeUpToggle: boolean;
-  currentTime: Date;
+  currentTime:  string; 
 }
   
-  function PageNotTimeYet({alarmTime, wakeUpToggle, setCurrentTime, currentTime, visualDisplay}: PageNotTimeYetProps) { 
+  function PageNotTimeYet({alarmTime, wakeUpToggle, setCurrentTime, currentTime, visualDisplay, setAlarmSetAt}: PageNotTimeYetProps) { 
     const navigate = useNavigate(); // this is for routing to a new link
 
     // naviagate to '/wakeup' or '/wakeup-audio' when currentTime >= alarmTime:
     function navToWakePage({alarmTime, wakeUpToggle, currentTime}: navToWakePageProps) {
       console.log("inside navegate to wake page function!")
-      
-      // let currentDay = currentTime.getDate();
-      // let minutes = currentTime.getMinutes();
-      // let hours = currentTime.getHours();
-      // let hrs: string;
-      // let mins :string;
-      // let currentTimeString: string;
+      console.log("alarmTime is:", alarmTime); //'2022-08-10T02:07'
+      console.log('current time is:', currentTime) // 8/10/2022, 1:05:09 PM'
 
-      // if (hours < 10 && minutes < 10) {
-      //   mins = "0" + minutes;
-      //   hrs = "0" + hours;
-      //   currentTimeString = hrs + ":" + mins;
-      // }
-      // else if (hours < 10) {
-      //   hrs = "0" + hours;
-      //   currentTimeString = hrs + ":" + minutes;
-      // }
-      // else if (minutes < 10) {
-      //   mins = "0" + minutes;
-      //   currentTimeString = currentTime.getHours() + ":" + mins;
-      // }
-      // else {
-      //   currentTimeString = currentTime.getHours() + ":" + currentTime.getMinutes();
-      // }
+      let years = alarmTime.substring(0,4);
+      let month = alarmTime.substring(5,7);
+      let day = alarmTime.substring(8,10);
+      let hours = alarmTime.substring(11,13);
+      let minutes = alarmTime.substring(14,16);
+      let suffix: string = "AM";
+      //drop the 0 in front of days, months, and hours:
+      if (Number(day) < 10) {
+        day = alarmTime.substring(9,10)
+      }
+      if (Number(month) < 10)
+      {
+        month = alarmTime.substring(6,7)
+      }
+      if (Number(hours) < 10)
+      {
+        hours = alarmTime.substring(12,13)
+      }
+      if (Number(hours) < 12) {
+        suffix = 'AM'
+      }
+      else if(Number(hours) === 12) {
+        suffix = 'PM';
+      }
+      else if (Number(hours) > 12) {
+        suffix = 'PM';
+        hours = String(Number(hours)-12)
+      }
 
-      if (currentTime >= alarmTime  && wakeUpToggle === false)) {
+      let alarmTimeString = `${month}/${day}/${years}, ${hours}:${minutes}:00 ${suffix}`
+
+      console.log("alarmTimeString is:", alarmTimeString); //'2022-08-10T02:07'
+      console.log('current time is:', currentTime)
+
+      if (currentTime >= alarmTimeString  && wakeUpToggle === false) {
         navigate('/wakeup')
       }
-      else if ((currentTime >= alarmTime && wakeUpToggle) {
+      else if (currentTime >= alarmTimeString && wakeUpToggle) {
         navigate('/wakeup-audio');
       }
 
-      // console.log("currentTimeString: ",currentTimeString);
-      console.log("alarmTime is:", alarmTime); '2022-08-10T02:07'
-    
-    
+  
       // if (currentTimeString >= alarmTime && wakeUpToggle === false) {
       //   navigate('/wakeup')
       // } else if (currentTimeString >= alarmTime && wakeUpToggle) {
@@ -84,13 +92,14 @@ interface navToWakePageProps {
       navToWakePage({alarmTime, wakeUpToggle, currentTime});
       if (firstRender.current) {
         firstRender.current = false;
-        firstTime.current = new Date(); // this is an object
-        console.log("this should only print 1x: the time the alarm was set,", firstTime.current)
+        firstTime.current = new Date(); // this is a Date object
+        setAlarmSetAt(firstTime.current.toLocaleString());
+        console.log("this should only print 1x: the time the alarm was set,", firstTime.current.toLocaleString())
         return;
       }
 
       const interval = setInterval(() => 
-      setCurrentTime(new Date()),
+      setCurrentTime(new Date().toLocaleString()),
       60000);
       return () => {
           clearInterval(interval);
@@ -109,7 +118,7 @@ interface navToWakePageProps {
           <h2>Okay to wake at:</h2>
           <AlarmTimeDisplay alarmTime={alarmTime}/>
           <RedTrafficLight/>
-          {visualDisplay ? <VisualCountdown currentTime={currentTime} alarmTime={alarmTime} alarmSetAt={firstTime.current} /> : null}
+          {visualDisplay ? <VisualCountdown alarmTime={alarmTime} alarmSetAt={firstTime.current} /> : null}
           <CurrentTimeDisplay/>
         </main>
       </>

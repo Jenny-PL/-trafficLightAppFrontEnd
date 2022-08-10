@@ -8,7 +8,6 @@ import PageWakeUpWithAudio from "./components/PageWakeUpWithAudio";
 import TrafficLight from "./components/TrafficLight";
 import { Routes, Route, Link } from "react-router-dom";
 import { useNavigate }  from 'react-router-dom';
-import { configure } from "@testing-library/react";
 
 
 // fileupload tag html input
@@ -25,21 +24,20 @@ function App() {
   //database: trafficlight
   // collection: wakeup
 
-  const [alarmTime, setAlarmTime] = React.useState<string>("00:00");
+  const [alarmTime, setAlarmTime] = React.useState(new Date().toLocaleString());
   const [wakeUpToggle, setWakeUpToggle] = React.useState<boolean>(false);
   const [audioToggle, setAudioToggle] = React.useState<boolean>(false);
   const [visualDisplay, setVisualDisplay] = React.useState<boolean>(false);
-  const [currentTime, setCurrentTime] = useState(new Date());
+  const [currentTime, setCurrentTime] = useState(new Date().toLocaleString());
   const [chosenSong, setChosenSong] = React.useState<File|null>(null);
+  const [alarmSetAt, setAlarmSetAt] = React.useState(new Date().toLocaleString());
 
   //To DO: add axios call for POST to db 
 
   //useEffect allows the component to render, then make the API call asynchronously 
   //after the app is fully rendered; the empty dependency array means it will only be called 1x
 
-  useEffect(() => {
-   add_song(chosenSong);
-   }, [chosenSong]);
+ 
 
     // want to add chosenSong to database.
     // convert chosenSong string --> binary?!
@@ -60,6 +58,9 @@ function App() {
 //     'Content-Type': 'file.type',
 //     'Access-Control-Allow-Origin': '*'}
 // }
+
+
+
  const add_song = (chosenSong:any) => {
     // axios.post(`${url}/alarmsong`, config)
   axios.post(`${url}/alarmsong`, chosenSong)
@@ -73,6 +74,9 @@ function App() {
       });
     }
 
+useEffect(() => {
+    add_song(chosenSong);
+    }, []);
 
 
 
@@ -95,9 +99,9 @@ function App() {
       <Routes>
         <Route path="/" element={<PageHome />} />
         <Route path="set" element={<PageSetAlarmForm setAlarmTime={setAlarmTime} setWakeUpToggle={setWakeUpToggle} setAudioToggle={setAudioToggle} setVisualDisplay={setVisualDisplay} setChosenSong={setChosenSong} alarmTime={alarmTime} chosenSong={chosenSong}/> } />
-        <Route path="alarm" element={<PageNotTimeYet alarmTime={alarmTime} wakeUpToggle={wakeUpToggle} setCurrentTime={setCurrentTime} currentTime={currentTime} visualDisplay={visualDisplay}/> } />
-        <Route path="wakeup" element={<PageOkayToWakeUp alarmTime={alarmTime} wakeUpToggle={wakeUpToggle} audioToggle={audioToggle} visualDisplay={visualDisplay}/> } />
-        <Route path="wakeup-audio" element={<PageWakeUpWithAudio alarmTime={alarmTime} wakeUpToggle={wakeUpToggle} audioToggle={audioToggle} visualDisplay={visualDisplay} chosenSong={chosenSong}/> } />
+        <Route path="alarm" element={<PageNotTimeYet alarmTime={alarmTime} wakeUpToggle={wakeUpToggle} setCurrentTime={setCurrentTime} currentTime={currentTime} visualDisplay={visualDisplay} setAlarmSetAt={setAlarmSetAt}/> } />
+        <Route path="wakeup" element={<PageOkayToWakeUp alarmTime={alarmTime} wakeUpToggle={wakeUpToggle} audioToggle={audioToggle} visualDisplay={visualDisplay} alarmSetAt={alarmSetAt}/> } />
+        <Route path="wakeup-audio" element={<PageWakeUpWithAudio alarmTime={alarmTime} wakeUpToggle={wakeUpToggle} audioToggle={audioToggle} visualDisplay={visualDisplay} alarmSetAt={alarmSetAt} chosenSong={chosenSong}/> } />
         {/* <Route path="visualcountdown" element={<PageNotTimeYetWithDisplay />} /> */}
       </Routes>
       <footer>
