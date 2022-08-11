@@ -9,24 +9,24 @@ import "./PageOkayToWakeUp.css";
 
 interface PageOkayToWakeUpProps {
     alarmTime: Date;
-    wakeUpToggle: boolean;
     audioToggle: boolean;
     visualDisplay: boolean;
-    alarmSetAt: Date
+    alarmSetAt: Date;
+    currentTime: Date;
 }
-function PageOkayToWakeUp({alarmTime, wakeUpToggle, audioToggle, visualDisplay, alarmSetAt}:PageOkayToWakeUpProps) {
+function PageOkayToWakeUp({alarmTime, audioToggle, visualDisplay, alarmSetAt, currentTime}:PageOkayToWakeUpProps) {
     return (
     <>
         <main>
-        <nav>
-        <Link to="/">Home</Link>
-        <Link to="/set">Modify Alarm</Link>
-        </nav>
-        <h2>You can Wake up!</h2>
-        <GreenTrafficLight/>
-        <CurrentTimeDisplay/>
-        {audioToggle ? <> <AudioBook/> <MusicPlay/> </> : null}
-        {visualDisplay ? <VisualCountdown alarmTime={alarmTime} alarmSetAt={alarmSetAt}/> : null}
+            <nav>
+                <Link to="/">Home</Link>
+                <Link to="/set">Modify Alarm</Link>
+            </nav>
+            <h2>You can Wake up!</h2>
+            <GreenTrafficLight/>
+            <CurrentTimeDisplay/>
+            {audioToggle ? <> <AudioBook/> <MusicPlay/> </> : null}
+            {visualDisplay ? <VisualCountdown alarmTime={alarmTime} alarmSetAt={alarmSetAt} currentTime={currentTime}/> : null}
         </main>
     </>
     );

@@ -10,9 +10,9 @@ interface PageSetAlarmFormProps {
     setWakeUpToggle: Function;
     setAudioToggle: Function;
     setVisualDisplay: Function;
-    alarmTime: string;
+    alarmTime: Date;
     setChosenSong: Function;
-    chosenSong: string;
+    chosenSong: string; //need to change this?
 }
 
 // Set Alarm Page
@@ -27,8 +27,8 @@ function PageSetAlarmForm({setAlarmTime, setWakeUpToggle, setAudioToggle, setVis
     }
       
     const onInputChange = (event: React.FormEvent<HTMLInputElement>) => {
-      console.log('here is the time set', event.currentTarget.value.toLocaleString()); //modified to set as a string
-      setAlarmTime(event.currentTarget.value.toLocaleString()); 
+      console.log('here is what you set: ', new Date(event.currentTarget.value)); //modified to set as a string
+      setAlarmTime(new Date(event.currentTarget.value)); 
     }
 
     const onWakeUpChange = (event: React.FormEvent<HTMLInputElement>) => {

@@ -2,54 +2,56 @@ import React from "react";
 import "./AlarmTimeDisplay.css";
 
 interface alarmTimeDisplayProps {
-    alarmTime: string // 2022-08-10T00:54  will be compared with '8/10/2022, 1:05:09 PM'
+    alarmTime: Date // Thu Aug 11 2022 10:44:00 GMT-0700 (Pacific Daylight Time)
 } 
 
 function AlarmTimeDisplay({alarmTime}: alarmTimeDisplayProps): JSX.Element {
-     
-    const modifyAmPm: Function = (alarmTime:string) => {
 
-        // Depending on speed of first render and alarmTime state setting:
-        // this code will run if alarmTime is in this format: '8/11/2022, 4:42:00 AM'  
-        if (alarmTime.includes('M')) {
-        console.log("Inside split function in modifyAMPM. alarmTime is: ", alarmTime)
-        let timeList = alarmTime.split(" ");
-        let suffix = timeList[2];
-        let hoursMins = timeList[1];
-        let hoursMinsList = hoursMins.split(":");
-        let hours = hoursMinsList[0];
-        let mins = hoursMinsList[1];
+    const modifyAmPm: Function = () => {
+        let hours: number = alarmTime.getHours();
+        let suffix: string = ' AM';
+        let minutes: number = alarmTime.getMinutes();
 
-        return `${hours}:${mins} ${suffix}`
+        if (hours === 0) {
+            hours = hours + 12;
         }
 
-        //this code will run if alarmTime is in this format: 2022-08-10T00:54 
+        if (hours > 12) {
+            hours = hours - 12;
+            suffix = ' PM'
+            if (minutes < 10) {
+                let modAlarmDisplay = `${hours}:0${minutes} ${suffix}`
+                return modAlarmDisplay;
+            }
+            let modAlarmDisplay = `${hours}:${minutes} ${suffix}`
+                return modAlarmDisplay;
+            } 
         else {
-        let hours = alarmTime.substring(11,13);
-        let minutes = alarmTime.substring(14,16);
-        let suffix = 'PM'
-        //drop the 0 in front of hours:
-        if (Number(hours) < 10)
-        {
-        hours = alarmTime.substring(12,13)
-        }
-        // return AM hours
-        if (Number(hours) < 12) {
-            suffix = 'AM';
-            return `${hours}:${minutes} ${suffix}`;
-        }
-        // return PM hours, not in military tie:
-        else {
-            return `${Number(hours)-12}:${minutes} ${suffix}`;
+            if (minutes < 10) {
+                let modAlarmDisplay = `${hours}:0${minutes} ${suffix}`
+                return modAlarmDisplay;
+            }
+            let modAlarmDisplay = `${hours}:${minutes} ${suffix}`
+            return modAlarmDisplay;
         }
     }
-    }
 
-    let modAlarmDisplay: string = modifyAmPm(alarmTime);
+    let modifiedAlarmDisplay = modifyAmPm();
 
+
+
+    // let hours = alarmTime.getHours();
+    // let suffix = "AM";
+    // if (hours > 12) {
+    //     hours = (hours - 12);
+    //     suffix = "PM";
+    // }
+    // let minutes = alarmTime.getMinutes();
+    // let modAlarmDisplay = `${hours}:${minutes} ${suffix}`
+    
     return ( 
         <div>
-        <p> {modAlarmDisplay} </p> 
+        <p> {modifiedAlarmDisplay} </p> 
         </div>
     )
 }
