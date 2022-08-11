@@ -7,10 +7,10 @@
 
 ## In production:
 - The option to add music to wake up, by uploading a song
-- Heroku deployment, to make it available online!
 - Make it a progressive web app
 
 ## Technology used:
 - Typescript (front end) with React
+- Heroku deployment, to make it available online
 - Python with Flask (backend), with a MongoDB database (To store music. See 'in production')
 - See trafficLightAppBackEnd repo 
