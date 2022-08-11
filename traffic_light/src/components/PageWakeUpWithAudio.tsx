@@ -11,7 +11,7 @@ interface PageWakeUpWithAudioProps {
     alarmTime: Date;
     audioToggle: boolean;
     visualDisplay: boolean;
-    chosenSong: string; //need to change this to audiofile? binary?
+    chosenSong: File | null; //need to change this to audiofile? binary?
     alarmSetAt: Date;
     currentTime: Date;
 }

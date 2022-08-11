@@ -29,7 +29,7 @@ function App() {
   const [audioToggle, setAudioToggle] = React.useState<boolean>(false);
   const [visualDisplay, setVisualDisplay] = React.useState<boolean>(false);
   const [currentTime, setCurrentTime] = useState(new Date());
-  const [chosenSong, setChosenSong] = React.useState<File|null>(null);
+  const [chosenSong, setChosenSong] = React.useState(null);
   const [alarmSetAt, setAlarmSetAt] = React.useState(new Date());
 
   //To DO: add axios call for POST to db 
@@ -100,8 +100,8 @@ useEffect(() => {
         <Route path="/" element={<PageHome />} />
         <Route path="set" element={<PageSetAlarmForm setAlarmTime={setAlarmTime} setWakeUpToggle={setWakeUpToggle} setAudioToggle={setAudioToggle} setVisualDisplay={setVisualDisplay} setChosenSong={setChosenSong} alarmTime={alarmTime} chosenSong={chosenSong}/> } />
         <Route path="alarm" element={<PageNotTimeYet alarmTime={alarmTime} wakeUpToggle={wakeUpToggle} setCurrentTime={setCurrentTime} currentTime={currentTime} visualDisplay={visualDisplay} setAlarmTime={setAlarmTime} setAlarmSetAt={setAlarmSetAt}/> } />
-        <Route path="wakeup" element={<PageOkayToWakeUp alarmTime={alarmTime} wakeUpToggle={wakeUpToggle} audioToggle={audioToggle} visualDisplay={visualDisplay} alarmSetAt={alarmSetAt} currentTime={currentTime}/> } />
-        <Route path="wakeup-audio" element={<PageWakeUpWithAudio alarmTime={alarmTime} wakeUpToggle={wakeUpToggle} audioToggle={audioToggle} visualDisplay={visualDisplay} alarmSetAt={alarmSetAt} chosenSong={chosenSong} currentTime={currentTime}/> } />
+        <Route path="wakeup" element={<PageOkayToWakeUp alarmTime={alarmTime} audioToggle={audioToggle} visualDisplay={visualDisplay} alarmSetAt={alarmSetAt} currentTime={currentTime}/> } />
+        <Route path="wakeup-audio" element={<PageWakeUpWithAudio alarmTime={alarmTime} audioToggle={audioToggle} visualDisplay={visualDisplay} alarmSetAt={alarmSetAt} chosenSong={chosenSong} currentTime={currentTime}/> } />
         {/* <Route path="visualcountdown" element={<PageNotTimeYetWithDisplay />} /> */}
       </Routes>
       <footer>
