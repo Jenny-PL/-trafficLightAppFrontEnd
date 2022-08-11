@@ -59,24 +59,21 @@ function App() {
 //     'Access-Control-Allow-Origin': '*'}
 // }
 
+// useEffect(() => {
+//   console.log("in use effect", chosenSong)
 
-
- const add_song = (chosenSong:any) => {
-    // axios.post(`${url}/alarmsong`, config)
-  axios.post(`${url}/alarmsong`, chosenSong)
-      .then((response) => {
-        //  config; //need to add headers to response somehow?
-        console.log(chosenSong, 'Song sent to database', response.data);
-  })
-      .catch((error) => {
-        console.log('Error with sending song to database', error.response.status);
-        console.log('The data from response with an error:', error.response.data);
-      });
-    }
-
-useEffect(() => {
-    add_song(chosenSong);
-    }, []);
+// //  const add_song = (chosenSong:any) => {
+//     // axios.post(`${url}/alarmsong`, config)
+//   axios.post(`${url}/alarmsong`, chosenSong)
+//       .then((response) => {
+//         //  config; //need to add headers to response somehow?
+//         console.log(chosenSong, 'Song sent to database', response.data);
+//   })
+//       .catch((error) => {
+//         console.log('Error with sending song to database', error.response.status);
+//         console.log('The data from response with an error:', error.response.data);
+//       });
+//     }, [chosenSong]);
 
 
 
@@ -102,7 +99,6 @@ useEffect(() => {
         <Route path="alarm" element={<PageNotTimeYet alarmTime={alarmTime} wakeUpToggle={wakeUpToggle} setCurrentTime={setCurrentTime} currentTime={currentTime} visualDisplay={visualDisplay} setAlarmTime={setAlarmTime} setAlarmSetAt={setAlarmSetAt}/> } />
         <Route path="wakeup" element={<PageOkayToWakeUp alarmTime={alarmTime} audioToggle={audioToggle} visualDisplay={visualDisplay} alarmSetAt={alarmSetAt} currentTime={currentTime}/> } />
         <Route path="wakeup-audio" element={<PageWakeUpWithAudio alarmTime={alarmTime} audioToggle={audioToggle} visualDisplay={visualDisplay} alarmSetAt={alarmSetAt} chosenSong={chosenSong} currentTime={currentTime}/> } />
-        {/* <Route path="visualcountdown" element={<PageNotTimeYetWithDisplay />} /> */}
       </Routes>
       <footer>
         &copy; 2022 Ada Developers Academy ✨ Jenny Luong✨

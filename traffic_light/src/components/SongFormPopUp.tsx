@@ -17,21 +17,57 @@ interface SongFormPopUpProps {
 //     file: File;
 //     //change file to correct props type!
 // }
-let songFileList : any;
+// let songFileList : any;
+const url = "http://127.0.0.1:5000" //change to heroku deployed url when able
+  //database: trafficlight
+  // collection: wakeup
 let songFile: any;
+
+const config = { headers: {  
+        'Content-Type':'multipart/form-data'
+       }
+    }
+
+
 function SongFormPopUp({setChosenSong, chosenSong, togglePopup}:SongFormPopUpProps): JSX.Element {
     // const navigate = useNavigate(); // this is for routing to a new link
 
     const onInputChange = (event: React.FormEvent<HTMLInputElement>) => {
         event.preventDefault();
         // setChosenSong(event.currentTarget.value);
-        songFileList = event.currentTarget.files;
-        if (songFileList != null) {
+        // songFileList = event.currentTarget.files;
         songFile = event.currentTarget.files![0];
-        console.log("here is the chosen file:", songFile);
         setChosenSong(songFile);
-        }
+        console.log("here is the chosen file:", songFile);
+        let songData = new FormData();
+        songData.append('song-file', songFile);
+        axios.post(`${url}/alarmsong`, songData, config)
+        .then((response) => {
+            //  config; //need to add headers to response somehow?
+            console.log(chosenSong, 'Song sent to database', response.data);
+            })
+        .catch((error) => {
+            console.log('Error with sending song to database', error.response.status);
+            console.log('The data from response with an error:', error.response.data);
+            });
+    };
        
+
+    // const onSubmit = (event: React.FormEvent<HTMLInputElement>) => {
+    //     event.preventDefault();
+    //     axios.post(`${url}/alarmsong`, chosenSong)
+    //     .then((response) => {
+    //         //  config; //need to add headers to response somehow?
+    //         console.log(chosenSong, 'Song sent to database', response.data);
+    //         })
+    //     .catch((error) => {
+    //         console.log('Error with sending song to database', error.response.status);
+    //         console.log('The data from response with an error:', error.response.data);
+    //         });
+    // };
+
+        // setChosenSong(songFile);
+
         // console.log(event.currentTarget.value);
         // console.log("here is the chosen song:", chosenSong);
 
@@ -42,7 +78,7 @@ function SongFormPopUp({setChosenSong, chosenSong, togglePopup}:SongFormPopUpPro
         // let file = new Audio(chosenSong);
         // // let file = event.target.files[0];
         // uploadFile(url,file);
-    };
+
 
  
 
@@ -65,7 +101,8 @@ function SongFormPopUp({setChosenSong, chosenSong, togglePopup}:SongFormPopUpPro
             <div className="close-icon" onClick={event =>togglePopup(event)}>
                 x
             </div>
-                <label htmlFor="add-song">An a wake-up song (mp3 file):
+                <label htmlFor="add-song">An a wake-up song (wav file):
+                <form>
                     <input type="file"
                         id="songInput" 
                         name="song"
@@ -73,6 +110,9 @@ function SongFormPopUp({setChosenSong, chosenSong, togglePopup}:SongFormPopUpPro
                         // accept="audio/mpeg" 
                         // value={chosenSong} 
                         onChange={onInputChange}></input>
+                        {/* <input type='submit' onSubmit={onSubmit}></input> */}
+                    </form>
+                   
                 </label>
 {/* alternately, choose a song from a list of songs: (returned from DB, with pagination?!) */}
         <label>Or, choose a song:</label>
