@@ -40,7 +40,7 @@ interface modifyAlarmProps {
 
       // This will check if alarmTime has been modified to comparable syntax:
       console.log("M in alarmtime?", alarmTime.includes('M'));
-      
+
       if (alarmTime.includes('M')){
         if (currentTime >= alarmTime  && wakeUpToggle === false) {
           navigate('/wakeup')
@@ -83,7 +83,8 @@ interface modifyAlarmProps {
   const firstRender = useRef(true);
   const firstTime = useRef(new Date());
   
-    //currentTimeDisplay component has similar useEffect hook; is it necessary in both places?
+ //useEffect is causing re-render of current time e/minute, as well as setting AlarmSetAt 1x
+ // and modifying alarmTime syntax 1x (with the useRef)
     useEffect(() => { 
       if (firstRender.current) {
         firstRender.current = false;

@@ -10,8 +10,8 @@ import {useEffect, useState} from "react";
 
 
 interface VisualCountdownProps {
-    alarmTime: String, //example: '2022-08-10T02:07'
-    alarmSetAt: String // example: 'Tue Aug 09 2022 21:05:57 GMT-0700 (Pacific Daylight Time)'
+    alarmTime: string, //example: '2022-08-10T02:07'
+    alarmSetAt: string // example: 'Tue Aug 09 2022 21:05:57 GMT-0700 (Pacific Daylight Time)'
 }
 
 
@@ -30,15 +30,46 @@ function VisualCountdown({alarmTime, alarmSetAt}:VisualCountdownProps): JSX.Elem
 
     let percentage: number;
     percentage = 60;
-    console.log( "It is:", time) // 8/10/2022, 2:10:14 PM
-    console.log("alarm time", alarmTime); // 2022-08-11T04:06
+
+    //BUG: alarmSetAt: Wed Aug 10 2022 20:03:58 GMT-0700 (Pacific Daylight Time)
+    //BUG: alarmTime: 2022-08-11T10:03
+    console.log("Alarm was set at", alarmSetAt) // 8/10/2022, 2:10:14 PM  
+    //new Date(2022,7,10,14,10,14) --> 2022-08-10T21:10:14.000Z
+    console.log("alarm time", alarmTime); //  8/11/2022, 5:02:00 AM
     console.log("current time: ", time); // 8/10/2022, 2:10:08 PM
 
-    let origDiff = alarmTime - alarmSetAt
+    //helper function to translate from  '8/11/2022, 5:02:00 AM' --> 2022-08-10T21:10:14.000Z 
+    // with new Date(2022,7,10,14,10,14): new Date(year, month:0-11, date, hour, mins, seconds)
+    function translateToDate(time: string) {
+        let timeList = time.split(" "); // ['8/11/2022,', '5:02:00', 'AM']
+        let dateList = time[0].split("/"); // ['8', '11', 2022,']
+        let month = String(Number(dateList[0]) -1);
+        let day = dateList[1];
+        let year = dateList[2].replace(",", "");
+        let clockList = time[1].split(":"); // ['5', '02', '00']
+        let hrs = clockList[0];
+        let mins = clockList[1];
+        let secs = clockList[2];
+
+        let hours = "";
+        if (timeList[2] === "PM") {
+            hours = String(12 + Number(hrs));
+        }
+        else if (timeList[2] === "AM"){
+            hours = String(hrs);
+        }
+        return new Date(year,month,day,hours,mins,secs);
+    }
+
+    let timeDate = translateToDate(time);
+    let alarmSetAtDate = translateToDate(alarmSetAt);
+    let alarmTimeDate = translateToDate(alarmTime);
+
+    let origDiff = alarmTimeDate.getTime() - alarmSetAtDate.getTime()
     console.log("orig time diff: ", origDiff)
-    let currentDiff = alarmTime.getTime() -  time.getTime()
+    let currentDiff = alarmTimeDate.getTime() -  timeDate.getTime()
     console.log("current Time diff: ", currentDiff)
-t
+
     percentage = (currentDiff/origDiff)*100
     console.log("perecentage is:", percentage )
     
