@@ -37,17 +37,6 @@ function AlarmTimeDisplay({alarmTime}: alarmTimeDisplayProps): JSX.Element {
     }
 
     let modifiedAlarmDisplay = modifyAmPm();
-
-
-
-    // let hours = alarmTime.getHours();
-    // let suffix = "AM";
-    // if (hours > 12) {
-    //     hours = (hours - 12);
-    //     suffix = "PM";
-    // }
-    // let minutes = alarmTime.getMinutes();
-    // let modAlarmDisplay = `${hours}:${minutes} ${suffix}`
     
     return ( 
         <div>
