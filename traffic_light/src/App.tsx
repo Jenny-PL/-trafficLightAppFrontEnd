@@ -29,7 +29,7 @@ function App() {
   const [audioToggle, setAudioToggle] = React.useState<boolean>(false);
   const [visualDisplay, setVisualDisplay] = React.useState<boolean>(false);
   const [currentTime, setCurrentTime] = useState(new Date());
-  const [chosenSong, setChosenSong] = React.useState(null);
+  const [chosenSong, setChosenSong] = React.useState<any>(null);
   const [alarmSetAt, setAlarmSetAt] = React.useState(new Date());
 
   //To DO: add axios call for POST to db 

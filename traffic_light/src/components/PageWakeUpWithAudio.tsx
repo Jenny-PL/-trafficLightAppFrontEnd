@@ -6,12 +6,13 @@ import MusicPlay from "./MusicPlay";
 import AudioBook from "./AudioBook";
 import "./PageOkayToWakeUp.css";
 import VisualCountdown from "./VisualCountdown";
+import { AnyRecord } from "dns";
 
 interface PageWakeUpWithAudioProps {
     alarmTime: Date;
     audioToggle: boolean;
     visualDisplay: boolean;
-    chosenSong: File | null; //need to change this to audiofile? binary?
+    chosenSong: any; //need to change this to audiofile? binary?
     alarmSetAt: Date;
     currentTime: Date;
 }
