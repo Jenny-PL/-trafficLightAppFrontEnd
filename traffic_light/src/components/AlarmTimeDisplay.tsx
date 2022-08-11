@@ -2,35 +2,48 @@ import React from "react";
 import "./AlarmTimeDisplay.css";
 
 interface alarmTimeDisplayProps {
-    alarmTime: string
-}
+    alarmTime: Date // Thu Aug 11 2022 10:44:00 GMT-0700 (Pacific Daylight Time)
+} 
 
 function AlarmTimeDisplay({alarmTime}: alarmTimeDisplayProps): JSX.Element {
 
-    const modifyAmPm: Function = (alarmTime:string) => {
-        let hrs: string = alarmTime.substring(0,2);
-        let hours: number = Number(hrs)
+    const modifyAmPm: Function = () => {
+        let hours: number = alarmTime.getHours();
         let suffix: string = ' AM';
-        let minutes: string = alarmTime.substring(3,5);
-       
+        let minutes: number = alarmTime.getMinutes();
+
+        if (hours === 0) {
+            hours = hours + 12;
+        }
+
         if (hours > 12) {
             hours = hours - 12;
             suffix = ' PM'
-            let modAlarmTime: string = hours + ':' + minutes + suffix;
-            return modAlarmTime;
-        } else {
-            let modAlarmTime: string = hours + ':' + minutes + suffix;
-            return modAlarmTime;
+            if (minutes < 10) {
+                let modAlarmDisplay = `${hours}:0${minutes} ${suffix}`
+                return modAlarmDisplay;
             }
+            let modAlarmDisplay = `${hours}:${minutes} ${suffix}`
+                return modAlarmDisplay;
+            } 
+        else {
+            if (minutes < 10) {
+                let modAlarmDisplay = `${hours}:0${minutes} ${suffix}`
+                return modAlarmDisplay;
+            }
+            let modAlarmDisplay = `${hours}:${minutes} ${suffix}`
+            return modAlarmDisplay;
         }
+    }
 
-    let modifiedTime: string = modifyAmPm(alarmTime);
-
+    let modifiedAlarmDisplay = modifyAmPm();
+    
     return ( 
         <div>
-        <p> {modifiedTime} </p> 
+        <p> {modifiedAlarmDisplay} </p> 
         </div>
     )
 }
+
 
 export default AlarmTimeDisplay;
