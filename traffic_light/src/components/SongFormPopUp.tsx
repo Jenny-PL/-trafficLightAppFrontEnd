@@ -17,8 +17,8 @@ interface SongFormPopUpProps {
 //     file: File;
 //     //change file to correct props type!
 // }
-let songFileList : null | FileList;
-let songFile: null | File;
+let songFileList : any;
+let songFile: any;
 function SongFormPopUp({setChosenSong, chosenSong, togglePopup}:SongFormPopUpProps): JSX.Element {
     // const navigate = useNavigate(); // this is for routing to a new link
 
@@ -27,7 +27,7 @@ function SongFormPopUp({setChosenSong, chosenSong, togglePopup}:SongFormPopUpPro
         // setChosenSong(event.currentTarget.value);
         songFileList = event.currentTarget.files;
         if (songFileList != null) {
-        songFile = event.currentTarget.files[0];
+        songFile = event.currentTarget.files![0];
         console.log("here is the chosen file:", songFile);
         setChosenSong(songFile);
         }
