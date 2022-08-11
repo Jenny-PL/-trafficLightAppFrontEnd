@@ -1,4 +1,4 @@
-# trafficLightAppFrontEnd
+# Traffic Light App (front end)
 
 ## Problem solved:  
 - Many young kids (mine, specifically) can't tell time.  This app will allow them to know when they can get up in the morning (and let me sleep in longer).
