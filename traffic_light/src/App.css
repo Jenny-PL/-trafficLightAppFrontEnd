@@ -45,19 +45,19 @@ div {
 } */
 
 
-*,
+/* *,
 *:before,
 *:after {
   box-sizing: border-box;
-}
+} */
 
 body {
   font-family: -apple-system, ".SFNSText-Regular", "Helvetica Neue", "Roboto", "Segoe UI", sans-serif;
 }
 
 .toggle {
-  cursor: pointer;
-  display: inline-block;
+  /* cursor: pointer;
+  display: inline-block; */
 }
 
 .toggle-switch {

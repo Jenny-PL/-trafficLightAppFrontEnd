@@ -101,7 +101,7 @@ function SongFormPopUp({setChosenSong, chosenSong, togglePopup}:SongFormPopUpPro
             <div className="close-icon" onClick={event =>togglePopup(event)}>
                 x
             </div>
-                <label htmlFor="add-song">An a wake-up song (wav file):
+                <label htmlFor="add-song">Add a wake-up song (upload an audio file):
                 <form>
                     <input type="file"
                         id="songInput" 
@@ -110,6 +110,8 @@ function SongFormPopUp({setChosenSong, chosenSong, togglePopup}:SongFormPopUpPro
                         // accept="audio/mpeg" 
                         // value={chosenSong} 
                         onChange={onInputChange}></input>
+
+                    
                         {/* <input type='submit' onSubmit={onSubmit}></input> */}
                     </form>
                    

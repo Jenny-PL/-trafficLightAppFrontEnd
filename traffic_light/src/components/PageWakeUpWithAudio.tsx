@@ -6,13 +6,13 @@ import MusicPlay from "./MusicPlay";
 import AudioBook from "./AudioBook";
 import "./PageOkayToWakeUp.css";
 import VisualCountdown from "./VisualCountdown";
-import { AnyRecord } from "dns";
+
 
 interface PageWakeUpWithAudioProps {
     alarmTime: Date;
     audioToggle: boolean;
     visualDisplay: boolean;
-    chosenSong: any; //need to change this to audiofile? binary?
+    chosenSong: any; 
     alarmSetAt: Date;
     currentTime: Date;
 }
@@ -20,6 +20,7 @@ interface PageWakeUpWithAudioProps {
 //play wake up song!
 function PageWakeUpWithAudio({alarmTime, audioToggle, visualDisplay, chosenSong, alarmSetAt, currentTime}:PageWakeUpWithAudioProps) {
 
+    // converts audio File to url for src in audio tag
     const blob = window.URL;
     const fileURL = blob.createObjectURL(chosenSong);
 
