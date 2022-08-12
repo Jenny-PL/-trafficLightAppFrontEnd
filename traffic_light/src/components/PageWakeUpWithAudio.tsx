@@ -34,7 +34,7 @@ function PageWakeUpWithAudio({alarmTime, audioToggle, visualDisplay, chosenSong,
         <GreenTrafficLight/>
         <CurrentTimeDisplay/>
         <audio autoPlay controls > 
-            {/* <source src={} type="audio/mpeg"/> */}
+            <source src={fileURL} type="audio/mpeg"/>
             <source src={fileURL} type="audio/wav"/>
         </audio>
         {audioToggle ? <> <AudioBook/> <MusicPlay/> </> : null}

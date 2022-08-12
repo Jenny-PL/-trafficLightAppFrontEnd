@@ -12,6 +12,10 @@ function AlarmTimeDisplay({alarmTime}: alarmTimeDisplayProps): JSX.Element {
         let suffix: string = ' AM';
         let minutes: number = alarmTime.getMinutes();
 
+        if (hours === 12) {
+            suffix = ' PM';
+        }
+
         if (hours === 0) {
             hours = hours + 12;
         }

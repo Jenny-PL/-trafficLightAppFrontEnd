@@ -106,7 +106,7 @@ function SongFormPopUp({setChosenSong, chosenSong, togglePopup}:SongFormPopUpPro
                     <input type="file"
                         id="songInput" 
                         name="song"
-                        accept="audio/wav"
+                        accept="audio/*"
                         // accept="audio/mpeg" 
                         // value={chosenSong} 
                         onChange={onInputChange}></input>
