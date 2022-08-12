@@ -1,0 +1,18 @@
+
+// import "./SongList.css";
+
+// interface SongListComponentProps {
+//     songList: any;
+// }
+
+// const SongListComponent = ({songList}: songListProps) {
+//   const getSongList = songList.map((song)) => {
+//    return (
+//     <li data={song.data}></li>
+//    )
+//   }
+//   return <div className="songList">{getSongList}</div>;
+// }
+// export default SongListComponent;
+
+

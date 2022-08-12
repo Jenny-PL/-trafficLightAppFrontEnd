@@ -19,6 +19,10 @@ interface PageWakeUpWithAudioProps {
 
 //play wake up song!
 function PageWakeUpWithAudio({alarmTime, audioToggle, visualDisplay, chosenSong, alarmSetAt, currentTime}:PageWakeUpWithAudioProps) {
+
+    const blob = window.URL;
+    const fileURL = blob.createObjectURL(chosenSong);
+
     return (
     <>
         <main>
@@ -29,8 +33,9 @@ function PageWakeUpWithAudio({alarmTime, audioToggle, visualDisplay, chosenSong,
         <h2>You can Wake up!</h2>
         <GreenTrafficLight/>
         <CurrentTimeDisplay/>
-        <audio controls autoPlay> 
-            <source src={chosenSong} type="audio/mpeg"/>
+        <audio autoPlay controls > 
+            {/* <source src={} type="audio/mpeg"/> */}
+            <source src={fileURL} type="audio/wav"/>
         </audio>
         {audioToggle ? <> <AudioBook/> <MusicPlay/> </> : null}
         {visualDisplay ? <VisualCountdown alarmTime={alarmTime} alarmSetAt={alarmSetAt} currentTime={currentTime}/> : null}
