@@ -14,19 +14,21 @@ interface PageNotTimeYetProps {
     visualDisplay: boolean;
     setAlarmSetAt: Function;
     setAlarmTime: Function;
+    chosenSong: any;
     }
 
 interface navToWakePageProps {
   alarmTime: Date;
   wakeUpToggle: boolean;
   currentTime:  Date; 
+  chosenSong: any;
 }
 
-  function PageNotTimeYet({alarmTime, wakeUpToggle, setCurrentTime, currentTime, visualDisplay, setAlarmSetAt, setAlarmTime}: PageNotTimeYetProps) { 
+  function PageNotTimeYet({alarmTime, wakeUpToggle, setCurrentTime, currentTime, visualDisplay, setAlarmSetAt, setAlarmTime, chosenSong}: PageNotTimeYetProps) { 
     const navigate = useNavigate(); // this is for routing to a new link
 
     // naviagate to '/wakeup' or '/wakeup-audio' when currentTime >= alarmTime:
-    function navToWakePage({alarmTime, wakeUpToggle, currentTime}: navToWakePageProps) {
+    function navToWakePage({alarmTime, wakeUpToggle, currentTime, chosenSong}: navToWakePageProps) {
       console.log("inside navigate to wake page function!")
       console.log("alarmTime is:", alarmTime); // Thu Aug 11 2022 10:44:00 GMT-0700 (Pacific Daylight Time)
       console.log('current time is:', currentTime) 
@@ -34,6 +36,9 @@ interface navToWakePageProps {
         if (currentTime >= alarmTime  && wakeUpToggle === false) {
           navigate('/wakeup')
         }
+        // else if (currentTime >= alarmTime && wakeUpToggle === true && chosenSong === false) {
+        //   navigate('/wakeup')
+        // }
         else if (currentTime >= alarmTime && wakeUpToggle) {
           navigate('/wakeup-audio');
       } 
@@ -44,7 +49,6 @@ interface navToWakePageProps {
   const firstRender = useRef(true);
   const firstTime = useRef(new Date());
   
-    //currentTimeDisplay component has similar useEffect hook; is it necessary in both places?
     useEffect(() => { 
       if (firstRender.current) {
         firstRender.current = false;
@@ -53,10 +57,11 @@ interface navToWakePageProps {
         console.log("this should only print 1x: the time the alarm was set,", firstTime.current)
         return;
       }
-      navToWakePage({alarmTime, wakeUpToggle, currentTime});
+      navToWakePage({alarmTime, wakeUpToggle, currentTime, chosenSong});
       const interval = setInterval(() => 
+      // navToWakePage({alarmTime, wakeUpToggle, currentTime, chosenSong}),
       setCurrentTime(new Date()),
-      60000);
+      6000);
       return () => {
           clearInterval(interval);
       };

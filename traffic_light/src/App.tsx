@@ -96,7 +96,7 @@ function App() {
       <Routes>
         <Route path="/" element={<PageHome />} />
         <Route path="set" element={<PageSetAlarmForm setAlarmTime={setAlarmTime} setWakeUpToggle={setWakeUpToggle} setAudioToggle={setAudioToggle} setVisualDisplay={setVisualDisplay} setChosenSong={setChosenSong} alarmTime={alarmTime} chosenSong={chosenSong}/> } />
-        <Route path="alarm" element={<PageNotTimeYet alarmTime={alarmTime} wakeUpToggle={wakeUpToggle} setCurrentTime={setCurrentTime} currentTime={currentTime} visualDisplay={visualDisplay} setAlarmTime={setAlarmTime} setAlarmSetAt={setAlarmSetAt}/> } />
+        <Route path="alarm" element={<PageNotTimeYet alarmTime={alarmTime} wakeUpToggle={wakeUpToggle} setCurrentTime={setCurrentTime} currentTime={currentTime} visualDisplay={visualDisplay} setAlarmTime={setAlarmTime} setAlarmSetAt={setAlarmSetAt} chosenSong={chosenSong}/> } />
         <Route path="wakeup" element={<PageOkayToWakeUp alarmTime={alarmTime} audioToggle={audioToggle} visualDisplay={visualDisplay} alarmSetAt={alarmSetAt} currentTime={currentTime}/> } />
         <Route path="wakeup-audio" element={<PageWakeUpWithAudio alarmTime={alarmTime} audioToggle={audioToggle} visualDisplay={visualDisplay} alarmSetAt={alarmSetAt} chosenSong={chosenSong} currentTime={currentTime}/> } />
       </Routes>

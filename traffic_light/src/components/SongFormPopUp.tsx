@@ -89,12 +89,6 @@ function SongFormPopUp({setChosenSong, chosenSong, togglePopup}:SongFormPopUpPro
     //         setChosenSong(event.currentTarget.value);}
     //     },[]);    
 
-
-//BUG: value is a string with file path --> need to instead upload, then convert to binary.
-
-        // https://stackoverflow.com/questions/43013858/how-to-post-a-file-from-a-form-with-axios/66964246#66964246
-        // https://developer.mozilla.org/en-US/docs/Web/API/FormData/Using_FormData_Objects
-  
     return (
     <div className="popup-box">
         <div className="box">
