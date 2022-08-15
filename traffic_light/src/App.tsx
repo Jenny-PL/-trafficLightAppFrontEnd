@@ -20,7 +20,8 @@ import { useNavigate }  from 'react-router-dom';
 
 function App() {
 
-  const url = "http://127.0.0.1:5000" //change to heroku deployed url when able
+  // const url = "http://127.0.0.1:5000" //change to heroku deployed url when able
+  const url = "https://traffic-light-clock-be.herokuapp.com"
   //database: trafficlight
   // collection: wakeup
 
@@ -31,8 +32,9 @@ function App() {
   const [currentTime, setCurrentTime] = useState(new Date());
   const [chosenSong, setChosenSong] = React.useState<any>(null);
   const [alarmSetAt, setAlarmSetAt] = React.useState(new Date());
+  const [songList, setSongList] = React.useState([['test1'],['test2']])
 
-  //To DO: add axios call for POST to db 
+  // let songList: any =  ['test1', 'test2']
 
   //useEffect allows the component to render, then make the API call asynchronously 
   //after the app is fully rendered; the empty dependency array means it will only be called 1x
@@ -59,21 +61,20 @@ function App() {
 //     'Access-Control-Allow-Origin': '*'}
 // }
 
-// useEffect(() => {
-//   console.log("in use effect", chosenSong)
-
-// //  const add_song = (chosenSong:any) => {
-//     // axios.post(`${url}/alarmsong`, config)
-//   axios.post(`${url}/alarmsong`, chosenSong)
-//       .then((response) => {
-//         //  config; //need to add headers to response somehow?
-//         console.log(chosenSong, 'Song sent to database', response.data);
-//   })
-//       .catch((error) => {
-//         console.log('Error with sending song to database', error.response.status);
-//         console.log('The data from response with an error:', error.response.data);
-//       });
-//     }, [chosenSong]);
+// This is to load the list of available songs from the DB
+useEffect(() => {
+  console.log("in use effect")
+  axios.get(`${url}/playmusic`)
+      .then((response) => {
+        const responseSongList = response.data;
+        console.log('List of songs from DB obtained', response.status);
+        setSongList(responseSongList);
+  })
+      .catch((error) => {
+        console.log('Error with getting songs from DB', error.response.status);
+        console.log('The data from response with an error:', error.response.data);
+      });
+    }, []); //runs one time
 
 
 
@@ -95,7 +96,7 @@ function App() {
       </header>
       <Routes>
         <Route path="/" element={<PageHome />} />
-        <Route path="set" element={<PageSetAlarmForm setAlarmTime={setAlarmTime} setWakeUpToggle={setWakeUpToggle} setAudioToggle={setAudioToggle} setVisualDisplay={setVisualDisplay} setChosenSong={setChosenSong} alarmTime={alarmTime} chosenSong={chosenSong}/> } />
+        <Route path="set" element={<PageSetAlarmForm setAlarmTime={setAlarmTime} setWakeUpToggle={setWakeUpToggle} setAudioToggle={setAudioToggle} setVisualDisplay={setVisualDisplay} setChosenSong={setChosenSong} alarmTime={alarmTime} chosenSong={chosenSong} songList={songList}/> } />
         <Route path="alarm" element={<PageNotTimeYet alarmTime={alarmTime} wakeUpToggle={wakeUpToggle} setCurrentTime={setCurrentTime} currentTime={currentTime} visualDisplay={visualDisplay} setAlarmTime={setAlarmTime} setAlarmSetAt={setAlarmSetAt} chosenSong={chosenSong}/> } />
         <Route path="wakeup" element={<PageOkayToWakeUp alarmTime={alarmTime} audioToggle={audioToggle} visualDisplay={visualDisplay} alarmSetAt={alarmSetAt} currentTime={currentTime}/> } />
         <Route path="wakeup-audio" element={<PageWakeUpWithAudio alarmTime={alarmTime} audioToggle={audioToggle} visualDisplay={visualDisplay} alarmSetAt={alarmSetAt} chosenSong={chosenSong} currentTime={currentTime}/> } />

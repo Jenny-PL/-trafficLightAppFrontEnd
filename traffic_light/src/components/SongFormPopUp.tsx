@@ -3,6 +3,7 @@ import "./SongFormPopUp.css";
 import axios from 'axios';
 import {useNavigate} from 'react-router-dom';
 import {useEffect} from "react";
+import SongListComponent from "./SongListComponent";
 
 interface SongFormPopUpProps {
     // handleClose: MouseEventHandler<HTMLSpanElement>;
@@ -10,6 +11,7 @@ interface SongFormPopUpProps {
     setChosenSong: Function;
     chosenSong: string;
     togglePopup: Function;
+    songList: any;
 }
 
 // interface uploadFileProps {
@@ -18,7 +20,8 @@ interface SongFormPopUpProps {
 //     //change file to correct props type!
 // }
 // let songFileList : any;
-const url = "http://127.0.0.1:5000" //change to heroku deployed url when able
+// const url = "http://127.0.0.1:5000" //change to heroku deployed url when able
+const url = "https://traffic-light-clock-be.herokuapp.com"
   //database: trafficlight
   // collection: wakeup
 let songFile: any;
@@ -29,7 +32,7 @@ const config = { headers: {
     }
 
 
-function SongFormPopUp({setChosenSong, chosenSong, togglePopup}:SongFormPopUpProps): JSX.Element {
+function SongFormPopUp({setChosenSong, chosenSong, togglePopup, songList}:SongFormPopUpProps): JSX.Element {
     // const navigate = useNavigate(); // this is for routing to a new link
 
     const onInputChange = (event: React.FormEvent<HTMLInputElement>) => {
@@ -40,8 +43,9 @@ function SongFormPopUp({setChosenSong, chosenSong, togglePopup}:SongFormPopUpPro
         setChosenSong(songFile);
         console.log("here is the chosen file:", songFile);
         let songData = new FormData();
+       
         songData.append('song-file', songFile);
-        axios.post(`${url}/alarmsong`, songData, config)
+        axios.post(`${url}/alarmsong`,  songData, config)
         .then((response) => {
             //  config; //need to add headers to response somehow?
             console.log(chosenSong, 'Song sent to database', response.data);
@@ -112,6 +116,7 @@ function SongFormPopUp({setChosenSong, chosenSong, togglePopup}:SongFormPopUpPro
                 </label>
 {/* alternately, choose a song from a list of songs: (returned from DB, with pagination?!) */}
         <label>Or, choose a song:</label>
+        <SongListComponent songList={songList}/>
             {/* <label>Choose Song
                 <input
                 type="text"
