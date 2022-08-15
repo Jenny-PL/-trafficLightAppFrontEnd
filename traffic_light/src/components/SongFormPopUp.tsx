@@ -117,7 +117,7 @@ function SongFormPopUp({setChosenSong, chosenSong, togglePopup, songList}:SongFo
 {/* alternately, choose a song from a list of songs: (returned from DB, with pagination?!) */}
         <label>Or, choose a song:</label>
         {/* this is to make sure the songList is populated before rendering: */}
-        {songList !== ['testOne', 'testTwo']? <SongListComponent songList={songList}/>: null}
+        {songList !== ['testOne', 'testTwo']? <SongListComponent songList={songList} setChosenSong={setChosenSong}/>: null}
             {/* <label>Choose Song
                 <input
                 type="text"
