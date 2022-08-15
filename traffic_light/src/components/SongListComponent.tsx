@@ -1,6 +1,10 @@
 
 import "./SongListComponent.css";
 import { Grid } from 'gridjs-react';
+import { RowSelection } from "gridjs/plugins/selection";
+import {useEffect} from 'react';
+import "gridjs/dist/theme/mermaid.css";
+
 
 // Tutorial: https://gridjs.io/docs/integrations/react
 
@@ -19,25 +23,37 @@ const SongListComponent = ({songList}: SongListComponentProps) =>{
 // currently songList is returning just the NAMES (string) of the audiofiles
 // ["PAW Patrol.mp3", "The Lion King - I Just Cant Wait to be King.mp3", "Un bolero de soledad.mp3", "Keep On The Sunny Side.mp3"]
 
+    let uploadedSongs = songList['songList'];
     let songListData: any = [];
     let song: any;
-    for (song of songList) {
-        songListData.push([song]);
-    }
+    for (song of uploadedSongs) {
+        songListData.push([song]);}
+
 
     return (
-    <div>
+        <div onClick={(event) => console.log('yourclicked this!')}>
+        {/* BUG: how to connect the click event with the data// or use the RowSelection component */}
         <Grid
         data={songListData}
-        // columns={['Songs Available']}
-        // the second column is in case we are using JSON to extract the names:
+        // Note: this is one column, with an ID and name...in case we are using JSON to extract the names:
         columns={[{id: 'name', name: 'Songs Available'}]}
-        search={true}
+        // columns={[
+        //     {id:'Select Row',
+        //     name: 'Select', 
+        //     plugin:{
+        //         component: RowSelection, 
+        //         // rowSelection: 'single',
+        //         props: {id: (row:any) => row.cell(1).data}
+        //     }}, {id: 'name', name: 'Songs Available'}]}
+        search={{enabled: true}}
         pagination={{
             enabled: true,
-            limit: 8,}}
-        /> 
-  </div>)
+            limit: 5,}}
+        language={{'search': {'placeholder': 'search songs...'}}}
+        // className={{thead:'table-head', container:'whole-thing'}}
+        />
+        </div>
+  )
 }
 export default SongListComponent;
 

@@ -8,6 +8,7 @@ import PageWakeUpWithAudio from "./components/PageWakeUpWithAudio";
 import TrafficLight from "./components/TrafficLight";
 import { Routes, Route, Link } from "react-router-dom";
 import { useNavigate }  from 'react-router-dom';
+import { setTimeout } from "timers/promises";
 
 
 // fileupload tag html input
@@ -32,14 +33,11 @@ function App() {
   const [currentTime, setCurrentTime] = useState(new Date());
   const [chosenSong, setChosenSong] = React.useState<any>(null);
   const [alarmSetAt, setAlarmSetAt] = React.useState(new Date());
-  const [songList, setSongList] = React.useState([['test1'],['test2']])
-
-  // let songList: any =  ['test1', 'test2']
+  const [songList, setSongList] = React.useState(['testOne', 'testTwo'])
 
   //useEffect allows the component to render, then make the API call asynchronously 
   //after the app is fully rendered; the empty dependency array means it will only be called 1x
 
- 
 
     // want to add chosenSong to database.
     // convert chosenSong string --> binary?!
@@ -61,24 +59,23 @@ function App() {
 //     'Access-Control-Allow-Origin': '*'}
 // }
 
+
 // This is to load the list of available songs from the DB
 useEffect(() => {
   console.log("in use effect")
   axios.get(`${url}/playmusic`)
-      .then((response) => {
+  .then((response) => {
         const responseSongList = response.data;
         console.log('List of songs from DB obtained', response.status);
         setSongList(responseSongList);
-  })
+      }) 
       .catch((error) => {
         console.log('Error with getting songs from DB', error.response.status);
         console.log('The data from response with an error:', error.response.data);
       });
-    }, []); //runs one time
+  }, []); //runs one time
 
-
-
-  // useEffect(() => {
+// useEffect(() => {
   //   axios.get('url')
   //     .then((response) => {
   //       console.log('The data we get back from the HTTP response:', response.data);

@@ -1,0 +1,19 @@
+/* table {} */
+
+th {
+ background-color: #A5C9CA;
+}
+thead {
+    background-color: #A5C9CA;
+}
+
+td {
+    color: #2C3333;
+    /* color: #999; */
+}
+tr:hover td {
+    background-color:  #395B64;
+    color: #E7F6F2;
+    }
+
+/* tr {} */
