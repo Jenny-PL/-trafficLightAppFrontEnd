@@ -26,12 +26,11 @@ const SongListComponent = ({songList, setChosenSong, setfileURL}: SongListCompon
         songListData.push([song]);}
 
 
-// This is an alternate way to populate the list:
+// simpler way to populate the list:
     let songListUl = []
     for (song of uploadedSongs) {
     songListUl.push(<li onClick={(event) => handleListSelection(event)}>{song}</li>)}
 
-// trying to write a function to 
 const handleListSelection = (event:React.MouseEvent<HTMLElement>) => {
     let song = event.currentTarget;     // <li></li>
     console.log(song.innerText);        // 'song title.mp3'
@@ -47,7 +46,6 @@ const handleListSelection = (event:React.MouseEvent<HTMLElement>) => {
         //   setChosenSong(responseSong);
           let dbURL = `${url}/alarmsong/${songName}`;
           setfileURL(dbURL);
-          
         }) 
         .catch((error) => {
           console.log('Error with getting songs from DB', error.response.status);
@@ -56,14 +54,14 @@ const handleListSelection = (event:React.MouseEvent<HTMLElement>) => {
 }
 
 
-const handleSongSelection = (cell:any) => {
-    let songName = cell;
-    let dbURL = `${url}/alarmsong/${songName}`;
-    setfileURL(dbURL);
-    // setChosenSong(cell);
-    cell.addClass('active');
-    td.setAttribute('active'); // how to add active class to my attribute.
-        }
+// const handleSongSelection = (cell:any) => {
+//     let songName = cell;
+//     let dbURL = `${url}/alarmsong/${songName}`;
+//     setfileURL(dbURL);
+//     // setChosenSong(cell);
+//     cell.addClass('active');
+//     td.setAttribute('active'); // how to add active class to my attribute.
+//         }
 
 
     return (
@@ -74,7 +72,8 @@ const handleSongSelection = (cell:any) => {
 
         {/* BUG: how or use the RowSelection component */}
         {/* BUG: How to make only most recent selected row background color be dark */}
-        <Grid
+
+        {/* <Grid
         data={songListData}
         // Note: this is one column, with an ID and name...in case we are using JSON to extract the names:
         columns={[{id: 'name', name: 'Songs Available', attributes: (cell) => {
@@ -83,34 +82,33 @@ const handleSongSelection = (cell:any) => {
             return {
             'data-cell-content':cell,
             'onclick': () => handleSongSelection(cell),
-
-            // 'onclick': () => setChosenSong(cell),
-            // onclick': () => alert(cell)
+            'onclick': () => setChosenSong(cell),
+            onclick': () => alert(cell)
             };
             }} 
         }]}
-        // columns={[
-        //     {id:'Select Row',
-        //     name: 'Select', 
-        //     attributes: (cell) => {
-        //             // add these attributes to the td elements only
-        //             if (cell) {
-        //             return {
-        //             'data-cell-content':cell,
-        //             'onSelect':() => handleSongSelection(cell),
-        //             'onclick': () => column.addClass('active') }},
-        //     plugin:{
-        //         component: RowSelection, 
-        //         // rowSelection: 'single',
-        //         props: {id: (row:any) => row.cell(1).data}
-        //     }}, {id: 'name', name: 'Songs Available'}]}
+        columns={[
+            {id:'Select Row',
+            name: 'Select', 
+            attributes: (cell) => {
+                    // add these attributes to the td elements only
+                    if (cell) {
+                    return {
+                    'data-cell-content':cell,
+                    'onSelect':() => handleSongSelection(cell),
+                    'onclick': () => column.addClass('active') }},
+            plugin:{
+                component: RowSelection, 
+                // rowSelection: 'single',
+                props: {id: (row:any) => row.cell(1).data}
+            }}, {id: 'name', name: 'Songs Available'}]}
         search={{enabled: true}}
         pagination={{
             enabled: true,
             limit: 5,}}
         language={{'search': {'placeholder': 'search songs...'}}}
         // className={{thead:'table-head', container:'whole-thing'}}
-        />
+        /> */}
         </div>
   )
 }

@@ -31,6 +31,7 @@ useEffect(() => {
   axios.get(`${url}/playmusic`)
   .then((response) => {
         const responseSongList = response.data;
+        console.log(responseSongList);
         console.log('List of songs from DB obtained', response.status);
         setSongList(responseSongList);
       }) 
@@ -48,9 +49,9 @@ useEffect(() => {
       <Routes>
         <Route path="/" element={<PageHome />} />
         <Route path="set" element={<PageSetAlarmForm setAlarmTime={setAlarmTime} setWakeUpToggle={setWakeUpToggle} setAudioToggle={setAudioToggle} setVisualDisplay={setVisualDisplay} setChosenSong={setChosenSong} alarmTime={alarmTime} chosenSong={chosenSong} songList={songList} setfileURL={setfileURL}/> } />
-        <Route path="alarm" element={<PageNotTimeYet alarmTime={alarmTime} wakeUpToggle={wakeUpToggle} setCurrentTime={setCurrentTime} currentTime={currentTime} visualDisplay={visualDisplay} setAlarmTime={setAlarmTime} setAlarmSetAt={setAlarmSetAt} fileURL={fileURL}/> } />
+        <Route path="alarm" element={<PageNotTimeYet alarmTime={alarmTime} wakeUpToggle={wakeUpToggle} setCurrentTime={setCurrentTime} currentTime={currentTime} visualDisplay={visualDisplay} setAlarmTime={setAlarmTime} setAlarmSetAt={setAlarmSetAt} fileURL={fileURL} chosenSong={chosenSong}/> } />
         <Route path="wakeup" element={<PageOkayToWakeUp alarmTime={alarmTime} audioToggle={audioToggle} visualDisplay={visualDisplay} alarmSetAt={alarmSetAt} currentTime={currentTime} setfileURL={setfileURL} fileURL={fileURL} songList={songList}/> } />
-        <Route path="wakeup-audio" element={<PageWakeUpWithAudio alarmTime={alarmTime} audioToggle={audioToggle} visualDisplay={visualDisplay} alarmSetAt={alarmSetAt} chosenSong={chosenSong} currentTime={currentTime} fileURL={fileURL} setfileURL={setfileURL}/> } />
+        <Route path="wakeup-audio" element={<PageWakeUpWithAudio alarmTime={alarmTime} audioToggle={audioToggle} visualDisplay={visualDisplay} alarmSetAt={alarmSetAt} chosenSong={chosenSong} currentTime={currentTime} fileURL={fileURL} setfileURL={setfileURL} songList={songList}/> } />
       </Routes>
       <footer>
         &copy; 2022 Ada Developers Academy ✨ Jenny Luong✨

@@ -16,10 +16,11 @@ interface PageWakeUpWithAudioProps {
     currentTime: Date;
     fileURL: string; 
     setfileURL: Function;
+    songList: any;
 }
 
 //play wake up song!
-function PageWakeUpWithAudio({alarmTime, audioToggle, visualDisplay, chosenSong, alarmSetAt, currentTime, fileURL, setfileURL}:PageWakeUpWithAudioProps) {
+function PageWakeUpWithAudio({alarmTime, audioToggle, visualDisplay, chosenSong, alarmSetAt, currentTime, fileURL, setfileURL, songList}:PageWakeUpWithAudioProps) {
 
     // if fileURL came from DB, it will not be empty
     if (fileURL === '') { 
@@ -44,7 +45,7 @@ function PageWakeUpWithAudio({alarmTime, audioToggle, visualDisplay, chosenSong,
             <source src={fileURL} type="audio/mpeg"/>
             <source src={fileURL} type="audio/wav"/>
         </audio>
-        {audioToggle ? <> <AudioBook/> <MusicPlay/> </> : null}
+        {audioToggle ? <> <AudioBook/> <MusicPlay songList={songList}/> </> : null}
         {visualDisplay ? <VisualCountdown alarmTime={alarmTime} alarmSetAt={alarmSetAt} currentTime={currentTime}/> : null}
         </main>
     </>
