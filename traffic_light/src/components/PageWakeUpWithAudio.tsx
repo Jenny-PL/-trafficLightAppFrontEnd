@@ -7,7 +7,6 @@ import AudioBook from "./AudioBook";
 import "./PageOkayToWakeUp.css";
 import VisualCountdown from "./VisualCountdown";
 
-
 interface PageWakeUpWithAudioProps {
     alarmTime: Date;
     audioToggle: boolean;
@@ -41,17 +40,13 @@ function PageWakeUpWithAudio({alarmTime, audioToggle, visualDisplay, chosenSong,
         <h2>You can Wake up!</h2>
         <GreenTrafficLight/>
         <CurrentTimeDisplay/>
-
-    {/* ternary to move between setState from upload or DB */}
         <audio autoPlay controls > 
             <source src={fileURL} type="audio/mpeg"/>
             <source src={fileURL} type="audio/wav"/>
         </audio>
         {audioToggle ? <> <AudioBook/> <MusicPlay/> </> : null}
         {visualDisplay ? <VisualCountdown alarmTime={alarmTime} alarmSetAt={alarmSetAt} currentTime={currentTime}/> : null}
-         {/* do not currently have a separate toggle for music and audio */}
         </main>
-        
     </>
     );
 }

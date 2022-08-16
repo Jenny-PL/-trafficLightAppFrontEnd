@@ -36,9 +36,6 @@ interface navToWakePageProps {
         if (currentTime >= alarmTime  && wakeUpToggle === false) {
           navigate('/wakeup')
         }
-        // else if (currentTime >= alarmTime && wakeUpToggle === true && chosenSong === false) {
-        //   navigate('/wakeup')
-        // }
         else if (currentTime >= alarmTime && wakeUpToggle) {
           navigate('/wakeup-audio');
       } 
@@ -59,15 +56,12 @@ interface navToWakePageProps {
       }
       navToWakePage({alarmTime, wakeUpToggle, currentTime, chosenSong});
       const interval = setInterval(() => 
-      // navToWakePage({alarmTime, wakeUpToggle, currentTime, chosenSong}),
       setCurrentTime(new Date()),
       6000);
       return () => {
           clearInterval(interval);
       };
       }, ); 
-      // remove dependency array?
-      // or fill array with: [alarmTime, wakeUpToggle, audioToggle, currentTime, visualDisplay, navToWakePage]
   
     return (
       <>

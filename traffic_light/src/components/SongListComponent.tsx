@@ -2,13 +2,11 @@
 import "./SongListComponent.css";
 import { Grid } from 'gridjs-react';
 import { RowSelection } from "gridjs/plugins/selection";
-import React, { useState, useEffect } from "react";
+import React from "react";
 import "gridjs/dist/theme/mermaid.css";
 import axios from 'axios';
 
 
-
-// Tutorial: https://gridjs.io/docs/integrations/react
 const url = "https://traffic-light-clock-be.herokuapp.com"
 interface SongListComponentProps {
     setfileURL: Function;

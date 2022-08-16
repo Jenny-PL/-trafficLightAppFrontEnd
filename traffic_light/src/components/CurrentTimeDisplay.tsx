@@ -2,9 +2,6 @@ import React from "react";
 import {useState, useEffect} from "react";
 import "./CurrentTimeDisplay.css";
 
-// interface CurrentTimeDisplayProps {
-// }
-
 function CurrentTimeDisplay(): JSX.Element {
 
     const now = new Date();

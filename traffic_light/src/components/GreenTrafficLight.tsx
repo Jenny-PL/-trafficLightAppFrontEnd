@@ -1,9 +1,6 @@
 import React from "react";
 import "./GreenTrafficLight.css";
 
-// interface GreenTrafficLightProps {
-// }
-// {person}:GreenTrafficLightProps
 
 function GreenTrafficLight(): JSX.Element {
     

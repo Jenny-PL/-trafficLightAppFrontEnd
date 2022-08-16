@@ -1,10 +1,8 @@
 import React from "react";
 import CurrentTimeDisplay from "./CurrentTimeDisplay";
-import SongListComponent from "./SongListComponent";
 import "./PageSetAlarmForm.css";
 import { useNavigate, Link }  from 'react-router-dom';
 import SongFormPopUp from "./SongFormPopUp";
-// import './App.css';
 
 interface PageSetAlarmFormProps {
     setAlarmTime: Function;
@@ -13,7 +11,7 @@ interface PageSetAlarmFormProps {
     setVisualDisplay: Function;
     alarmTime: Date;
     setChosenSong: Function;
-    chosenSong: string; //need to change this?
+    chosenSong: any; 
     songList: any;
     setfileURL: Function;
 }
@@ -30,7 +28,7 @@ function PageSetAlarmForm({setAlarmTime, setWakeUpToggle, setAudioToggle, setVis
     }
       
     const onInputChange = (event: React.FormEvent<HTMLInputElement>) => {
-      console.log('here is what you set: ', new Date(event.currentTarget.value)); //modified to set as a string
+      console.log('here is what you set: ', new Date(event.currentTarget.value)); 
       setAlarmTime(new Date(event.currentTarget.value)); 
     }
 
@@ -55,52 +53,44 @@ function PageSetAlarmForm({setAlarmTime, setWakeUpToggle, setAudioToggle, setVis
     return (
       <>
         <main className="formPage">
-            <h1>Set up Alarm</h1>
-
+          <h1>Set up Alarm</h1>
             {isOpen ? <SongFormPopUp setfileURL={setfileURL} togglePopup={togglePopup} setChosenSong={setChosenSong} chosenSong={chosenSong} songList={songList}/> : null}
-
             <form onSubmit={event => handleFormSubmission(event)}>
-                <div id="setTime">
-                    <CurrentTimeDisplay/>
-                    <label htmlFor="alarm">Ok to wake time: 
-  {/* QUESTION: what goes in value?  event.currentTarget.value? name attribute? alarmTime from state on app level? */}
-                        <input type='datetime-local' id="alarm" name="alarm" onChange={event => onInputChange(event)} />
+              <div id="setTime">
+                  <CurrentTimeDisplay/>
+                  <label htmlFor="alarm">Ok to wake time: 
+                      <input type='datetime-local' id="alarm" name="alarm" onChange={event => onInputChange(event)} />
+                  </label>
+              </div>
 
-                    </label>
-                </div>
-            
-                <div id="songToggle">
+              <div id="songToggle">
                 <label className="toggle">
-                    {/* <input id="slideToggle" className="toggle-checkbox" type="checkbox" name="wakeupsong"  onChange={event => onWakeUpChange(event)} checked={event?.currentTarget.checked}/> */}
-                    {/* <input id="slideToggle" className="toggle-checkbox" type="checkbox" name="wakeupsong"  onChange={event => onWakeUpChange(event)} checked={wakeUpToggle}/> */}
                     <input id="slideToggle" className="toggle-checkbox" type="checkbox" name="wakeupsong"  onChange={event => onWakeUpChange(event)} defaultChecked={false}/>
                     <div className="toggle-switch"></div>
                     <span className="toggle-label">Wake-Up Song</span>
                 </label>
-                </div>
+              </div>
 
-                <div id="audioMusicToggle">
-                    <label className="toggle">
+              <div id="audioMusicToggle">
+                  <label className="toggle">
                     <input id="slideToggle" className="toggle-checkbox" type="checkbox" onChange={event => onAudioChange(event)} defaultChecked={false}/>
-                    {/* <input id="slideToggle" className="toggle-checkbox" type="checkbox" onChange={event => onAudioChange(event)} checked={audioToggle}/> */}
                     <div className="toggle-switch"></div>
                     <span className="toggle-label">Music and audiobooks available</span>
-                    </label>
-                </div>
-  
-                <div id="visualCountToggle">
-                    <label className="toggle">
-                    {/* <input id="slideToggle" className="toggle-checkbox" type="checkbox" onChange={event => onVisualChange(event)} checked={visualDisplay}/> */}
+                  </label>
+              </div>
+
+              <div id="visualCountToggle">
+                  <label className="toggle">
                     <input id="slideToggle" className="toggle-checkbox" type="checkbox" onChange={event => onVisualChange(event)} defaultChecked={false}/>
                     <div className="toggle-switch"></div>
                     <span className="toggle-label">Visual Countdown of time left</span>
-                    </label>
-                </div>
-  
-                <div id="setAlarmButton">
-                    <input type='submit' value='Set Alarm' />
-                </div>
-            </form>
+                  </label>
+              </div>
+
+              <div id="setAlarmButton">
+                  <input type='submit' value='Set Alarm' />
+              </div>
+          </form>
         </main>
         <nav>
           <Link to="/">Home</Link>

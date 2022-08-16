@@ -20,7 +20,7 @@ function App() {
   const [chosenSong, setChosenSong] = React.useState<any>(null);
   const [alarmSetAt, setAlarmSetAt] = React.useState(new Date());
   const [songList, setSongList] = React.useState(['testOne', 'testTwo'])
-  const [fileURL, setfileURL] = React.useState('');
+  const [fileURL, setfileURL] = React.useState<string>('');
 
 //useEffect allows the component to render, then make the API call asynchronously 
 //The empty dependency array means it will only be called 1x

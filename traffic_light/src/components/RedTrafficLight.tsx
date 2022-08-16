@@ -1,10 +1,6 @@
 import React from "react";
 import "./RedTrafficLight.css";
 
-// interface TrafficLightProps {
-// }
-// {person}:TrafficLightProps
-
 function RedTrafficLight(): JSX.Element {
     
     return (
