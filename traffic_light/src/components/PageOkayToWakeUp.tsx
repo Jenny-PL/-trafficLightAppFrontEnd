@@ -28,7 +28,7 @@ function PageOkayToWakeUp({alarmTime, audioToggle, visualDisplay, alarmSetAt, cu
             <h2>You can Wake up!</h2>
             <GreenTrafficLight/>
             <CurrentTimeDisplay/>
-            {audioToggle ? <> <AudioBook/> <MusicPlay setfileURL={setfileURL} songList={songList} fileURL={fileURL}/> </> : null}
+            {audioToggle ? <> <AudioBook/> <MusicPlay songList={songList} /> </> : null}
             {visualDisplay ? <VisualCountdown alarmTime={alarmTime} alarmSetAt={alarmSetAt} currentTime={currentTime}/> : null}
         </main>
     </>
