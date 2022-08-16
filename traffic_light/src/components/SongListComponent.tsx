@@ -13,14 +13,9 @@ const url = "https://traffic-light-clock-be.herokuapp.com"
 interface SongListComponentProps {
     setfileURL: Function;
     setChosenSong: Function;
-    songList: any; //This songList should come from axios to GET all files.
-    // then could use files['name'] to construcut a list of names only??
+    songList: any; //songList comes from axios call GET all song titles
 }
-    // onClick of 'submit' within the sonFormPopUp component should send an axios request to 
-    // get a file from database, or if already have the file, setChosenSong() to match selected File
-    // from grid component
-
-
+  
 const SongListComponent = ({songList, setChosenSong, setfileURL}: SongListComponentProps) =>{
 // returned from axios Get request, an object: `songList:  {songList: Array(4)} ` 
 // currently songList['songList'] contains just the names (string) of the audiofiles
@@ -44,9 +39,8 @@ const handleListSelection = (event:React.MouseEvent<HTMLElement>) => {
     console.log(song.innerText);        // 'song title.mp3'
     song.classList.add('active');
     let songName = song.innerText;
-    // setChosenSong(songName); //BUG: This only sets the name, not the audioFile
-    //axios call to return audioFile with use of songName
-
+   
+    // axios call to return the audio file for a given name
     axios.get(`${url}/alarmsong/${songName}`)
     .then((response) => {
           const responseSong = response.data;
