@@ -32,10 +32,29 @@ const MusicPlay: Function = ({setfileURL, songList, fileURL}:MusicPlayProps) => 
             setPlaySong(dbURL);
         }
     }
+    // const handleClick = () => {
+    //     count += 1;
+    //     let audioElement = new Audio(playSong);
+    //     audioElement?.setAttribute('autoPlay', ""); 
+    //     if (count > uploadedSongs.length-1) {
+    //         count = 0;
+    //         let dbURL = `${url}/alarmsong/${songName}`;
+    //         setPlaySong(dbURL);
+    //     }
+    //     else {
+    //         let dbURL = `${url}/alarmsong/${songName}`;
+    //         setPlaySong(dbURL);
+    //     }
+    //     audioElement.play();
+    // }
 
     return (
         <>
-        <p >🎵</p>
+       
+        {/* <div onClick={() =>audioElement.play()} >🎵</div> */}
+        {/* <div onClick={(event) => handleClick()} >🎵</div> */}
+
+
         <p> Play music</p>
         <audio id="playlist" onEnded={() => loadSongs()} controls > 
             <source src={playSong} type="audio/mpeg"/>

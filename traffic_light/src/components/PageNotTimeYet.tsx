@@ -14,26 +14,26 @@ interface PageNotTimeYetProps {
     visualDisplay: boolean;
     setAlarmSetAt: Function;
     setAlarmTime: Function;
-    chosenSong: any;
+    fileURL: string;
     }
 
 interface navToWakePageProps {
   alarmTime: Date;
   wakeUpToggle: boolean;
   currentTime:  Date; 
-  chosenSong: any;
+  fileURL: string;
 }
 
-  function PageNotTimeYet({alarmTime, wakeUpToggle, setCurrentTime, currentTime, visualDisplay, setAlarmSetAt, setAlarmTime, chosenSong}: PageNotTimeYetProps) { 
+  function PageNotTimeYet({alarmTime, wakeUpToggle, setCurrentTime, currentTime, visualDisplay, setAlarmSetAt, setAlarmTime, fileURL}: PageNotTimeYetProps) { 
     const navigate = useNavigate(); // this is for routing to a new link
 
     // naviagate to '/wakeup' or '/wakeup-audio' when currentTime >= alarmTime:
-    function navToWakePage({alarmTime, wakeUpToggle, currentTime, chosenSong}: navToWakePageProps) {
+    function navToWakePage({alarmTime, wakeUpToggle, currentTime, fileURL}: navToWakePageProps) {
       console.log("inside navigate to wake page function!")
       console.log("alarmTime is:", alarmTime); // Thu Aug 11 2022 10:44:00 GMT-0700 (Pacific Daylight Time)
       console.log('current time is:', currentTime) 
   
-        if (currentTime >= alarmTime  && wakeUpToggle === false) {
+        if ((currentTime >= alarmTime  && wakeUpToggle === false) || (currentTime >= alarmTime && wakeUpToggle === true && fileURL === '')) {
           navigate('/wakeup')
         }
         else if (currentTime >= alarmTime && wakeUpToggle) {
@@ -54,7 +54,7 @@ interface navToWakePageProps {
         console.log("this should only print 1x: the time the alarm was set,", firstTime.current)
         return;
       }
-      navToWakePage({alarmTime, wakeUpToggle, currentTime, chosenSong});
+      navToWakePage({alarmTime, wakeUpToggle, currentTime, fileURL});
       const interval = setInterval(() => 
       setCurrentTime(new Date()),
       6000);

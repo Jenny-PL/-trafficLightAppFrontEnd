@@ -43,7 +43,7 @@ const handleListSelection = (event:React.MouseEvent<HTMLElement>) => {
     .then((response) => {
         //   const responseSong = response.data;
           console.log('audioFile obtained from DB', response.status);
-          console.log(response.data);
+        //   console.log(response.data);
         //   setChosenSong(responseSong);
           let dbURL = `${url}/alarmsong/${songName}`;
           setfileURL(dbURL);
@@ -57,8 +57,12 @@ const handleListSelection = (event:React.MouseEvent<HTMLElement>) => {
 
 
 const handleSongSelection = (cell:any) => {
-    setChosenSong(cell);
+    let songName = cell;
+    let dbURL = `${url}/alarmsong/${songName}`;
+    setfileURL(dbURL);
+    // setChosenSong(cell);
     cell.addClass('active');
+    td.setAttribute('active'); // how to add active class to my attribute.
         }
 
 
@@ -88,6 +92,13 @@ const handleSongSelection = (cell:any) => {
         // columns={[
         //     {id:'Select Row',
         //     name: 'Select', 
+        //     attributes: (cell) => {
+        //             // add these attributes to the td elements only
+        //             if (cell) {
+        //             return {
+        //             'data-cell-content':cell,
+        //             'onSelect':() => handleSongSelection(cell),
+        //             'onclick': () => column.addClass('active') }},
         //     plugin:{
         //         component: RowSelection, 
         //         // rowSelection: 'single',
