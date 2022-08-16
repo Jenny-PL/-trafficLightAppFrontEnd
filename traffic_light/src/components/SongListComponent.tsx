@@ -47,7 +47,7 @@ const handleListSelection = (event:React.MouseEvent<HTMLElement>) => {
     // setChosenSong(songName); //BUG: This only sets the name, not the audioFile
     //axios call to return audioFile with use of songName
 
-    axios.get(`${url}/${songName}`)
+    axios.get(`${url}/alarmsong/${songName}`)
     .then((response) => {
           const responseSong = response.data;
           console.log('audioFile obtained from DB', response.status);
