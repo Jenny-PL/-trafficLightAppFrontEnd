@@ -4,11 +4,14 @@ import { Grid } from 'gridjs-react';
 import { RowSelection } from "gridjs/plugins/selection";
 import React, { useState, useEffect } from "react";
 import "gridjs/dist/theme/mermaid.css";
+import axios from 'axios';
+
 
 
 // Tutorial: https://gridjs.io/docs/integrations/react
-
+const url = "https://traffic-light-clock-be.herokuapp.com"
 interface SongListComponentProps {
+    setfileURL: Function;
     setChosenSong: Function;
     songList: any; //This songList should come from axios to GET all files.
     // then could use files['name'] to construcut a list of names only??
@@ -18,7 +21,7 @@ interface SongListComponentProps {
     // from grid component
 
 
-const SongListComponent = ({songList, setChosenSong}: SongListComponentProps) =>{
+const SongListComponent = ({songList, setChosenSong, setfileURL}: SongListComponentProps) =>{
 // returned from axios Get request, an object: `songList:  {songList: Array(4)} ` 
 // currently songList['songList'] contains just the names (string) of the audiofiles
 // ["PAW Patrol.mp3", "The Lion King - I Just Cant Wait to be King.mp3", "Un bolero de soledad.mp3", "Keep On The Sunny Side.mp3"]
@@ -33,22 +36,43 @@ const SongListComponent = ({songList, setChosenSong}: SongListComponentProps) =>
 // This is an alternate way to populate the list:
     let songListUl = []
     for (song of uploadedSongs) {
-    songListUl.push(<li>{song}</li>)}
+    songListUl.push(<li onClick={(event) => handleListSelection(event)}>{song}</li>)}
+
+// trying to write a function to 
+const handleListSelection = (event:React.MouseEvent<HTMLElement>) => {
+    let song = event.currentTarget;     // <li></li>
+    console.log(song.innerText);        // 'song title.mp3'
+    song.classList.add('active');
+    let songName = song.innerText;
+    // setChosenSong(songName); //BUG: This only sets the name, not the audioFile
+    //axios call to return audioFile with use of songName
+
+    axios.get(`${url}/${songName}`)
+    .then((response) => {
+          const responseSong = response.data;
+          console.log('audioFile obtained from DB', response.status);
+          console.log(response.data);
+          setChosenSong(responseSong);
+          let dbURL = `${url}/alarmsong/${songName}`;
+          setfileURL(dbURL);
+          
+        }) 
+        .catch((error) => {
+          console.log('Error with getting songs from DB', error.response.status);
+          console.log('The data from response with an error:', error.response.data);
+        });
+}
 
 
-const [selectedCell] = React.useState<any>(null);
-// const [chosenSong, setChosenSong] = React.useState<any>(null);
+const handleSongSelection = (cell:any) => {
+    setChosenSong(cell);
+    cell.addClass('active');
+        }
 
-        // const handleSongSelection = () => {
-        //     setSelectedCell(cell);
-        // }
-    if (selectedCell) {
-    setChosenSong(selectedCell);
-    }
 
     return (
-        <div onClick={(event) => console.log('yourclicked this!')}>
-        <span>
+        <div>
+        <span >
            {songListUl}
         </span>
 
@@ -62,7 +86,9 @@ const [selectedCell] = React.useState<any>(null);
             if (cell) {
             return {
             'data-cell-content':cell,
-            'onclick': () => setChosenSong(cell),
+            'onclick': () => handleSongSelection(cell),
+
+            // 'onclick': () => setChosenSong(cell),
             // onclick': () => alert(cell)
             };
             }} 

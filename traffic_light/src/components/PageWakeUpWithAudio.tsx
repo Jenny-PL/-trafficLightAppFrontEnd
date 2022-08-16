@@ -15,14 +15,21 @@ interface PageWakeUpWithAudioProps {
     chosenSong: any; 
     alarmSetAt: Date;
     currentTime: Date;
+    fileURL: string; 
+    setfileURL: Function;
 }
 
 //play wake up song!
-function PageWakeUpWithAudio({alarmTime, audioToggle, visualDisplay, chosenSong, alarmSetAt, currentTime}:PageWakeUpWithAudioProps) {
+function PageWakeUpWithAudio({alarmTime, audioToggle, visualDisplay, chosenSong, alarmSetAt, currentTime, fileURL, setfileURL}:PageWakeUpWithAudioProps) {
 
+    // if fileURL came from DB, it will not be empty
+    if (fileURL === '') { 
     // converts audio File to url for src in audio tag
     const blob = window.URL;
     const fileURL = blob.createObjectURL(chosenSong);
+    setfileURL(fileURL);
+    }
+
 
     return (
     <>
@@ -34,6 +41,8 @@ function PageWakeUpWithAudio({alarmTime, audioToggle, visualDisplay, chosenSong,
         <h2>You can Wake up!</h2>
         <GreenTrafficLight/>
         <CurrentTimeDisplay/>
+
+    {/* ternary to move between setState from upload or DB */}
         <audio autoPlay controls > 
             <source src={fileURL} type="audio/mpeg"/>
             <source src={fileURL} type="audio/wav"/>

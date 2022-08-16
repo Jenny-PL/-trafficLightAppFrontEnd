@@ -3,6 +3,10 @@
 th {
  background-color: #A5C9CA;
 }
+
+/* .table-head {
+    background-color: #A5C9CA;
+} */
 thead {
     background-color: #A5C9CA;
 }
@@ -15,5 +19,10 @@ tr:hover td {
     background-color:  #395B64;
     color: #E7F6F2;
     }
+
+.active {
+    background-color:  #395B64;
+    color: #E7F6F2;
+}
 
 /* tr {} */

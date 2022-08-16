@@ -12,6 +12,7 @@ interface SongFormPopUpProps {
     chosenSong: string;
     togglePopup: Function;
     songList: any;
+    setfileURL: Function;
 }
 
 // interface uploadFileProps {
@@ -32,7 +33,7 @@ const config = { headers: {
     }
 
 
-function SongFormPopUp({setChosenSong, chosenSong, togglePopup, songList}:SongFormPopUpProps): JSX.Element {
+function SongFormPopUp({setChosenSong, chosenSong, togglePopup, songList, setfileURL}:SongFormPopUpProps): JSX.Element {
     // const navigate = useNavigate(); // this is for routing to a new link
 
     const onInputChange = (event: React.FormEvent<HTMLInputElement>) => {
@@ -41,6 +42,7 @@ function SongFormPopUp({setChosenSong, chosenSong, togglePopup, songList}:SongFo
         // songFileList = event.currentTarget.files;
         songFile = event.currentTarget.files![0];
         setChosenSong(songFile);
+        // converts audio File to url for src in audio tag
         console.log("here is the chosen file:", songFile);
         let songData = new FormData();
        
@@ -117,7 +119,7 @@ function SongFormPopUp({setChosenSong, chosenSong, togglePopup, songList}:SongFo
 {/* alternately, choose a song from a list of songs: (returned from DB, with pagination?!) */}
         <label>Or, choose a song:</label>
         {/* this is to make sure the songList is populated before rendering: */}
-        {songList !== ['testOne', 'testTwo']? <SongListComponent songList={songList} setChosenSong={setChosenSong}/>: null}
+        {songList !== ['testOne', 'testTwo']? <SongListComponent songList={songList} setChosenSong={setChosenSong} setfileURL={setfileURL}/>: null}
             {/* <label>Choose Song
                 <input
                 type="text"

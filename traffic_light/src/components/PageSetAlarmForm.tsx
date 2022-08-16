@@ -15,10 +15,11 @@ interface PageSetAlarmFormProps {
     setChosenSong: Function;
     chosenSong: string; //need to change this?
     songList: any;
+    setfileURL: Function;
 }
 
 // Set Alarm Page
-function PageSetAlarmForm({setAlarmTime, setWakeUpToggle, setAudioToggle, setVisualDisplay, setChosenSong, alarmTime, chosenSong, songList}: PageSetAlarmFormProps) {
+function PageSetAlarmForm({setAlarmTime, setWakeUpToggle, setAudioToggle, setVisualDisplay, setChosenSong, alarmTime, chosenSong, songList, setfileURL}: PageSetAlarmFormProps) {
     const navigate = useNavigate(); // this is for routing to a new link
 
     // pop-up to select song, toggle on/off:
@@ -56,7 +57,7 @@ function PageSetAlarmForm({setAlarmTime, setWakeUpToggle, setAudioToggle, setVis
         <main className="formPage">
             <h1>Set up Alarm</h1>
 
-            {isOpen ? <SongFormPopUp  togglePopup={togglePopup} setChosenSong={setChosenSong} chosenSong={chosenSong} songList={songList}/> : null}
+            {isOpen ? <SongFormPopUp setfileURL={setfileURL} togglePopup={togglePopup} setChosenSong={setChosenSong} chosenSong={chosenSong} songList={songList}/> : null}
 
             <form onSubmit={event => handleFormSubmission(event)}>
                 <div id="setTime">
