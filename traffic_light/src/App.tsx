@@ -7,24 +7,10 @@ import PageOkayToWakeUp from "./components/PageOkayToWakeUp";
 import PageWakeUpWithAudio from "./components/PageWakeUpWithAudio";
 import TrafficLight from "./components/TrafficLight";
 import { Routes, Route, Link } from "react-router-dom";
-import { useNavigate }  from 'react-router-dom';
-import { setTimeout } from "timers/promises";
-
-
-// fileupload tag html input
-// also front end libraries to upload files
-// <label for="avatar">Choose a profile picture:</label>
-//<input type="file"
-//       id="avatar" name="avatar"
-//       accept="image/png, image/jpeg"></input> 
-
 
 function App() {
 
-  // const url = "http://127.0.0.1:5000" //change to heroku deployed url when able
   const url = "https://traffic-light-clock-be.herokuapp.com"
-  //database: trafficlight
-  // collection: wakeup
 
   const [alarmTime, setAlarmTime] = React.useState(new Date());
   const [wakeUpToggle, setWakeUpToggle] = React.useState<boolean>(false);
@@ -34,36 +20,12 @@ function App() {
   const [chosenSong, setChosenSong] = React.useState<any>(null);
   const [alarmSetAt, setAlarmSetAt] = React.useState(new Date());
   const [songList, setSongList] = React.useState(['testOne', 'testTwo'])
-
   const [fileURL, setfileURL] = React.useState('');
 
+//useEffect allows the component to render, then make the API call asynchronously 
+//The empty dependency array means it will only be called 1x
 
-  //useEffect allows the component to render, then make the API call asynchronously 
-  //after the app is fully rendered; the empty dependency array means it will only be called 1x
-
-
-    // want to add chosenSong to database.
-    // convert chosenSong string --> binary?!
-
-  //   let binarySong: BinaryData;
-  //   const chosenSongToAudio = (chosenSong) =>{
-  //     //convert file path to binary to store in DB?
-  //     binarySong = ArrayBufferToBinary(chosenSong);
-  //   }
-
-  //   //What is this array buffer?  how do I get it?
-  //   function ArrayBufferToBinary(chosenSong) {
-  //     // Convert an array buffer to a string bit-representation: 0 1 1 0 0 0...
-  //     var uint8 = new Uint8Array(chosenSong);
-  //     return uint8.reduce((binary, uint8) => binary + uint8.toString(2), "");
-  // }
-//   const config = { headers: {  
-//     'Content-Type': 'file.type',
-//     'Access-Control-Allow-Origin': '*'}
-// }
-
-
-// This is to load the list of available songs from the DB
+// Load list of available songs names from the DB
 useEffect(() => {
   console.log("in use effect")
   axios.get(`${url}/playmusic`)
@@ -76,20 +38,9 @@ useEffect(() => {
         console.log('Error with getting songs from DB', error.response.status);
         console.log('The data from response with an error:', error.response.data);
       });
-  }, []); //runs one time
+  }, []); 
 
-// useEffect(() => {
-  //   axios.get('url')
-  //     .then((response) => {
-  //       console.log('The data we get back from the HTTP response:', response.data);
-  //     })
-  //     .catch((error) => {
-  //       console.log('Anything that isn\'t status code 2XX is an error:', error.response.status);
-  //       console.log('The data from response with an error:', error.response.data);
-  //     });
-  // }, []);
-
-
+  // React router
   return (
     <div className="App">
       <header className="App-header">
@@ -117,7 +68,7 @@ function PageHome() {
       <TrafficLight/>
       </main>
       <nav>
-        <Link to="/set">Set alarm (with clickable traffic light)</Link>
+        <Link to="/set">Set alarm</Link>
       </nav>
     </>
   );
