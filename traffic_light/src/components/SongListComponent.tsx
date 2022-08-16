@@ -41,10 +41,10 @@ const handleListSelection = (event:React.MouseEvent<HTMLElement>) => {
     // axios call to return the audio file for a given name
     axios.get(`${url}/alarmsong/${songName}`)
     .then((response) => {
-          const responseSong = response.data;
+        //   const responseSong = response.data;
           console.log('audioFile obtained from DB', response.status);
           console.log(response.data);
-          setChosenSong(responseSong);
+        //   setChosenSong(responseSong);
           let dbURL = `${url}/alarmsong/${songName}`;
           setfileURL(dbURL);
           
