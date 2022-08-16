@@ -1,8 +1,10 @@
 import React from "react";
 import CurrentTimeDisplay from "./CurrentTimeDisplay";
 import "./PageSetAlarmForm.css";
+import 'bootstrap/dist/css/bootstrap.min.css';
 import { useNavigate, Link }  from 'react-router-dom';
 import SongFormPopUp from "./SongFormPopUp";
+
 
 interface PageSetAlarmFormProps {
     setAlarmTime: Function;
@@ -52,10 +54,10 @@ function PageSetAlarmForm({setAlarmTime, setWakeUpToggle, setAudioToggle, setVis
   
     return (
       <>
-        <main className="formPage">
-          <h1>Set up Alarm</h1>
+        <main>
+          <h1 >Set up Alarm</h1>
             {isOpen ? <SongFormPopUp setfileURL={setfileURL} togglePopup={togglePopup} setChosenSong={setChosenSong} chosenSong={chosenSong} songList={songList}/> : null}
-            <form onSubmit={event => handleFormSubmission(event)}>
+            <form className="formPage" onSubmit={event => handleFormSubmission(event)}>
               <div id="setTime">
                   <CurrentTimeDisplay/>
                   <label htmlFor="alarm">Ok to wake time: 
@@ -63,38 +65,41 @@ function PageSetAlarmForm({setAlarmTime, setWakeUpToggle, setAudioToggle, setVis
                   </label>
               </div>
 
-              <div id="songToggle">
-                <label className="toggle">
+            <div id="toggleDiv">
+
+               <div id="songToggle">
+               <label className="toggle">
                     <input id="slideToggle" className="toggle-checkbox" type="checkbox" name="wakeupsong"  onChange={event => onWakeUpChange(event)} defaultChecked={false}/>
                     <div className="toggle-switch"></div>
-                    <span className="toggle-label">Wake-Up Song</span>
+                    <span className="toggle-label">Wake-Up Song                  </span>
                 </label>
               </div>
 
-              <div id="audioMusicToggle">
-                  <label className="toggle">
+             <div id="audioMusicToggle">
+                <label className="toggle"> 
                     <input id="slideToggle" className="toggle-checkbox" type="checkbox" onChange={event => onAudioChange(event)} defaultChecked={false}/>
                     <div className="toggle-switch"></div>
                     <span className="toggle-label">Music and audiobooks available</span>
                   </label>
-              </div>
+                </div>
 
-              <div id="visualCountToggle">
-                  <label className="toggle">
+                <div id="visualCountToggle">
+                  <label className="toggle"> 
                     <input id="slideToggle" className="toggle-checkbox" type="checkbox" onChange={event => onVisualChange(event)} defaultChecked={false}/>
                     <div className="toggle-switch"></div>
-                    <span className="toggle-label">Visual Countdown of time left</span>
+                    <span className="toggle-label">Visual Countdown of time left </span>
                   </label>
-              </div>
-
+                </div>
+                </div>
+              
               <div id="setAlarmButton">
                   <input type='submit' value='Set Alarm' />
               </div>
           </form>
-        </main>
         <nav>
           <Link to="/">Home</Link>
         </nav>
+        </main>
       </>
     );
   }

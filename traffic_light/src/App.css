@@ -3,6 +3,10 @@
 A5C9CA
 E7F6F2  light blue*/
 
+.navbar {
+  text-decoration: none;
+}
+
 div {
   margin: auto 60px;
 }
@@ -29,35 +33,13 @@ div {
   display: flex;
 }
 
-
-/* @media (prefers-reduced-motion: no-preference) {
-  .containerT {
-    animation: App-logo-spin infinite 40s linear;
-  }
-}
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-} */
-
-
-/* *,
-*:before,
-*:after {
-  box-sizing: border-box;
-} */
-
 body {
   font-family: -apple-system, ".SFNSText-Regular", "Helvetica Neue", "Roboto", "Segoe UI", sans-serif;
 }
 
 .toggle {
-  /* cursor: pointer;
-  display: inline-block; */
+  cursor: pointer;
+  display: inline-block;
 }
 
 .toggle-switch {

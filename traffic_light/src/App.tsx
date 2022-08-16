@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from 'axios';
 import './App.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import PageSetAlarmForm from "./components/PageSetAlarmForm";
 import PageNotTimeYet from "./components/PageNotTimeYet";
 import PageOkayToWakeUp from "./components/PageOkayToWakeUp";

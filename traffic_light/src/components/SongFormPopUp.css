@@ -1,8 +1,7 @@
 #hidden-file-input {
     opacity: 0;
 }
-/* BUG: the pop-up box is tranparent; when you scroll, it becomes hard to see. 
-The toggle buttons/text go over it. */
+
 .popup-box {
     z-index: 1; 
     position: fixed;
