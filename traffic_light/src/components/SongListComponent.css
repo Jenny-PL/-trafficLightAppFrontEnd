@@ -25,4 +25,8 @@ tr:hover td {
     color: #E7F6F2;
 }
 
+li {
+    text-align: right;
+    list-style: none;
+}
 /* tr {} */

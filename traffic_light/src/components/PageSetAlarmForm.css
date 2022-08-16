@@ -1,7 +1,6 @@
 .formPage {
     display: grid;
     grid-template-rows: 150px 150px 50px;
-    /* grid-template-rows: 150px 50px 50px 50px 50px; */
 }
 
 #setTime {
@@ -19,36 +18,12 @@
     padding-top: 5px; 
     padding-left: 50px;
     text-align: left;
-    /* justify-content: flex-start; */
-    /* justify-items: left; */
-    /* text-align: left; */
 }
 
 
 #setAlarmButton {
     grid-row: 3/4;
 }
-
-/* #setTime {
-    grid-row: 1/2;    
-} */
-
-
-/* #songToggle {
-    grid-row: 2/3;   
-}
-
-#audioMusicToggle {
-    grid-row: 3/4;
-}
-
-#visualCountToggle {
-    grid-row: 4/5;
-}
-
-#setAlarmButton {
-    grid-row: 5/6;
-} */
 
 .toggle {
     cursor: pointer;
@@ -101,14 +76,3 @@
     position: relative;
     top: 2px;
   }
-
-
-
-/* nav {
-    grid-row: 6/7;
-} */
-
-/* .navbar {
-    text-decoration: none;
-    grid-row: 6/7;
-  } */
