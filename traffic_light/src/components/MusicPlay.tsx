@@ -1,20 +1,43 @@
 import "./MusicPlay.css";
-import useSound from "use-sound";
+import React from 'react';
 
 interface MusicPlayProps {
-    playCommand: string;
-    audio: string;
-    onClick: Function
+    setfileURL: Function;
+    songList: any;
+    fileURL: string;
 }
 
-const MusicPlay: Function = ({playCommand,audio }:MusicPlayProps) => {
-    // const [play] = useSound({audio});
-  
-    // return <button onClick={play}>{playCommand}</button>;
+const url = "https://traffic-light-clock-be.herokuapp.com"
+
+const MusicPlay: Function = ({setfileURL, songList, fileURL}:MusicPlayProps) => {
+
+    let uploadedSongs = songList['songList'];
+    let count: number = 0;
+    let songName =  uploadedSongs[count];
+    const [playSong, setPlaySong] = React.useState(`${url}/alarmsong/${songName}`)
+
+    const loadSongs = () => {
+        count += 1;
+        audio.setattribute('autoplay')
+        if (count > uploadedSongs.length-1) {
+            count = 0;
+            let dbURL = `${url}/alarmsong/${songName}`;
+            setPlaySong(dbURL);
+        }
+        else {
+            let dbURL = `${url}/alarmsong/${songName}`;
+            setPlaySong(dbURL);
+        }
+    }
+
     return (
         <>
-        <p>🎵</p>
+        <p >🎵</p>
         <p> Play music</p>
+        <audio onEnded={(event) => loadSongs()} controls > 
+            <source src={playSong} type="audio/mpeg"/>
+            <source src={playSong} type="audio/wav"/>
+        </audio>
         </>
     )
   };

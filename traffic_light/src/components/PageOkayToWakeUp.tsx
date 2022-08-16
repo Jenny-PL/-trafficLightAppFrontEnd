@@ -13,8 +13,11 @@ interface PageOkayToWakeUpProps {
     visualDisplay: boolean;
     alarmSetAt: Date;
     currentTime: Date;
+    setfileURL: Function;
+    fileURL: string;
+    songList: any;
 }
-function PageOkayToWakeUp({alarmTime, audioToggle, visualDisplay, alarmSetAt, currentTime}:PageOkayToWakeUpProps) {
+function PageOkayToWakeUp({alarmTime, audioToggle, visualDisplay, alarmSetAt, currentTime, setfileURL, songList, fileURL}:PageOkayToWakeUpProps) {
     return (
     <>
         <main>
@@ -25,7 +28,7 @@ function PageOkayToWakeUp({alarmTime, audioToggle, visualDisplay, alarmSetAt, cu
             <h2>You can Wake up!</h2>
             <GreenTrafficLight/>
             <CurrentTimeDisplay/>
-            {audioToggle ? <> <AudioBook/> <MusicPlay/> </> : null}
+            {audioToggle ? <> <AudioBook/> <MusicPlay setfileURL={setfileURL} songList={songList} fileURL={fileURL}/> </> : null}
             {visualDisplay ? <VisualCountdown alarmTime={alarmTime} alarmSetAt={alarmSetAt} currentTime={currentTime}/> : null}
         </main>
     </>
