@@ -58,7 +58,7 @@ function SongFormPopUp({setChosenSong, chosenSong, togglePopup, songList, setfil
                 </label>
         <label>Or, choose a song:</label>
         {songList !== ['testOne', 'testTwo']? <SongListComponent songList={songList} setChosenSong={setChosenSong} setfileURL={setfileURL}/>: null}
-        <button onClick={event => togglePopup(event)}>close</button>
+        <button onClick={event => togglePopup(event)}>Submit</button>
         </div>
     </div>
 )}

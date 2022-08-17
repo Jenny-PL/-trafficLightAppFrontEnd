@@ -42,8 +42,6 @@ const handleListSelection = (event:React.MouseEvent<HTMLElement>) => {
     .then((response) => {
         //   const responseSong = response.data;
           console.log('audioFile obtained from DB', response.status);
-        //   console.log(response.data);
-        //   setChosenSong(responseSong);
           let dbURL = `${url}/alarmsong/${songName}`;
           setfileURL(dbURL);
         }) 
@@ -52,16 +50,6 @@ const handleListSelection = (event:React.MouseEvent<HTMLElement>) => {
           console.log('The data from response with an error:', error.response.data);
         });
 }
-
-
-// const handleSongSelection = (cell:any) => {
-//     let songName = cell;
-//     let dbURL = `${url}/alarmsong/${songName}`;
-//     setfileURL(dbURL);
-//     // setChosenSong(cell);
-//     cell.addClass('active');
-//     td.setAttribute('active'); // how to add active class to my attribute.
-//         }
 
 
     return (

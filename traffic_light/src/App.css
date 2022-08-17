@@ -38,8 +38,14 @@ body {
 }
 
 nav a {
-  color: #A5C9CA;
+  color: #395B64;
   font-weight: 800;
   padding-left: 10px; 
+  padding: 10px;
   text-decoration: none;
+  font-size: large;
+}
+
+nav a:hover {
+  color: #0078AA;
 }
